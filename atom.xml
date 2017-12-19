@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://damon4u.github.io/"/>
-  <updated>2017-12-18T14:47:57.000Z</updated>
+  <updated>2017-12-19T12:09:59.000Z</updated>
   <id>https://damon4u.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>date_format函数</title>
+    <link href="https://damon4u.github.io//blog/2017/12/mysql-dateformat.html"/>
+    <id>https://damon4u.github.io//blog/2017/12/mysql-dateformat.html</id>
+    <published>2017-12-19T09:41:50.000Z</published>
+    <updated>2017-12-19T12:09:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-定义和用法"><a href="#1-定义和用法" class="headerlink" title="1.定义和用法"></a>1.定义和用法</h3><p><code>DATE_FORMAT()</code>函数用于以不同的格式显示日期/时间数据。</p><a id="more"></a><h3 id="2-语法"><a href="#2-语法" class="headerlink" title="2.语法"></a>2.语法</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">DATE_FORMAT</span><span class="params">(date,format)</span></span></div></pre></td></tr></table></figure><p><code>date</code>参数是合法的日期。<code>format</code>规定日期/时间的输出格式。</p><table><thead><tr><th>格式</th><th>描述</th></tr></thead><tbody><tr><td>%Y</td><td>年，4 位</td></tr><tr><td>%y</td><td>年，2 位</td></tr><tr><td>%m</td><td>月，数值(00-12)</td></tr><tr><td>%b</td><td>缩写月名(Dec)</td></tr><tr><td>%c</td><td>月，数值</td></tr><tr><td>%D</td><td>带有英文前缀的月中的天</td></tr><tr><td>%d</td><td>月的天，数值(00-31)</td></tr><tr><td>%e</td><td>月的天，数值(0-31)</td></tr><tr><td>%j</td><td>年的天 (001-366)</td></tr><tr><td>%H</td><td>小时 (00-23)</td></tr><tr><td>%h</td><td>小时 (01-12)</td></tr><tr><td>%I</td><td>小时 (01-12)</td></tr><tr><td>%k</td><td>小时 (0-23)</td></tr><tr><td>%l</td><td>小时 (1-12)</td></tr><tr><td>%i</td><td>分钟，数值(00-59)</td></tr><tr><td>%S</td><td>秒(00-59)</td></tr><tr><td>%s</td><td>秒(00-59)</td></tr><tr><td>%f</td><td>微秒</td></tr><tr><td>%U</td><td>周 (00-53) 星期日是一周的第一天</td></tr><tr><td>%u</td><td>周 (00-53) 星期一是一周的第一天</td></tr><tr><td>%p</td><td>AM 或 PM</td></tr><tr><td>%a</td><td>缩写星期名</td></tr></tbody></table><h3 id="3-使用实例"><a href="#3-使用实例" class="headerlink" title="3.使用实例"></a>3.使用实例</h3><p>统计每天0点到1点的数量<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="built_in">date</span>(create_time),<span class="keyword">count</span>(<span class="number">1</span>) <span class="keyword">from</span> live <span class="keyword">where</span> <span class="keyword">date_format</span>(create_time, <span class="string">'%H:%i:%S'</span>)&gt;<span class="string">'00:00:00'</span> <span class="keyword">and</span> <span class="keyword">date_format</span>(create_time, <span class="string">'%H:%i:%S'</span>)&lt;<span class="string">'01:00:00'</span> <span class="keyword">group</span> <span class="keyword">by</span> <span class="built_in">date</span>(create_time) <span class="keyword">order</span> <span class="keyword">by</span> create_time <span class="keyword">desc</span>;</div></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-定义和用法&quot;&gt;&lt;a href=&quot;#1-定义和用法&quot; class=&quot;headerlink&quot; title=&quot;1.定义和用法&quot;&gt;&lt;/a&gt;1.定义和用法&lt;/h3&gt;&lt;p&gt;&lt;code&gt;DATE_FORMAT()&lt;/code&gt;函数用于以不同的格式显示日期/时间数据。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://damon4u.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="mysql" scheme="https://damon4u.github.io/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
