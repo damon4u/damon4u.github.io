@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://damon4u.github.io/"/>
-  <updated>2017-12-20T10:05:11.000Z</updated>
+  <updated>2017-12-20T11:18:07.000Z</updated>
   <id>https://damon4u.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://damon4u.github.io//blog/2017/12/dubbo.html"/>
     <id>https://damon4u.github.io//blog/2017/12/dubbo.html</id>
     <published>2017-12-20T09:41:50.000Z</published>
-    <updated>2017-12-20T10:05:11.000Z</updated>
+    <updated>2017-12-20T11:18:07.000Z</updated>
     
     <content type="html"><![CDATA[<p>最近dubbo项目重新维护，让人忍不住想了解一下。</p><p>本文参考<a href="https://github.com/alibaba/dubbo/tree/master/dubbo-demo" target="_blank" rel="external">dubbo官方实例</a>实现了一个简单的demo。使用Spring配置文件，zookeeper作为注册器。</p><a id="more"></a><p><img src="/images/a.ico" alt=""><br><img src="/images/1.jpg" alt=""></p>]]></content>
     
