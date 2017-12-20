@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://damon4u.github.io/"/>
-  <updated>2017-12-19T12:09:59.000Z</updated>
+  <updated>2017-12-20T03:47:10.000Z</updated>
   <id>https://damon4u.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>包规范</title>
+    <link href="https://damon4u.github.io//blog/2017/12/%E5%8C%85%E8%A7%84%E8%8C%83.html"/>
+    <id>https://damon4u.github.io//blog/2017/12/包规范.html</id>
+    <published>2017-12-20T03:41:50.000Z</published>
+    <updated>2017-12-20T03:47:10.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>写这篇文章的主要目的是为了规范之后git项目的包结构。<br>截止到现在，每次新建项目pom时，都会纠结包名和目录结构，而心中没有一个统一的规范，这样就显得很杂乱无章。</p><p>无规矩不成方圆。</p><a id="more"></a><p>看一下Spring的包规范：<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;spring.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></div></pre></td></tr></table></figure></p><p>仿照这种形式，制定以下规约：</p><ul><li><p>练手项目：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.damon4u.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hello-xxx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div></pre></td></tr></table></figure></li><li><p>工具项目：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.damon4u.util<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-xxx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;写这篇文章的主要目的是为了规范之后git项目的包结构。&lt;br&gt;截止到现在，每次新建项目pom时，都会纠结包名和目录结构，而心中没有一个统一的规范，这样就显得很杂乱无章。&lt;/p&gt;
+&lt;p&gt;无规矩不成方圆。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="文档" scheme="https://damon4u.github.io/categories/%E6%96%87%E6%A1%A3/"/>
+    
+    
+      <category term="文档" scheme="https://damon4u.github.io/tags/%E6%96%87%E6%A1%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>date_format函数</title>
