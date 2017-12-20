@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="Damon4u">
 <meta property="og:description" content="写这篇文章的主要目的是为了规范之后git项目的包结构。截止到现在，每次新建项目pom时，都会纠结包名和目录结构，而心中没有一个统一的规范，这样就显得很杂乱无章。 无规矩不成方圆。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-20T03:47:10.000Z">
+<meta property="og:updated_time" content="2017-12-20T14:34:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="包规范">
 <meta name="twitter:description" content="写这篇文章的主要目的是为了规范之后git项目的包结构。截止到现在，每次新建项目pom时，都会纠结包名和目录结构，而心中没有一个统一的规范，这样就显得很杂乱无章。 无规矩不成方圆。">
@@ -384,16 +384,16 @@
         <p>写这篇文章的主要目的是为了规范之后git项目的包结构。<br>截止到现在，每次新建项目pom时，都会纠结包名和目录结构，而心中没有一个统一的规范，这样就显得很杂乱无章。</p>
 <p>无规矩不成方圆。</p>
 <a id="more"></a>
-<p>看一下Spring的包规范：<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;spring.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
+<p>看一下Spring的包规范：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure></p>
 <p>仿照这种形式，制定以下规约：</p>
 <ul>
-<li><p>练手项目：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.damon4u.demo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hello-xxx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>工具项目：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.damon4u.util<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-xxx<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div></pre></td></tr></table></figure>
-</li>
+<li>练手项目：</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;groupId&gt;com.damon4u.demo&lt;/groupId&gt;</div><div class="line">&lt;artifactId&gt;hello-xxx&lt;/artifactId&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>工具项目：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;groupId&gt;com.damon4u.util&lt;/groupId&gt;</div><div class="line">&lt;artifactId&gt;commons-xxx&lt;/artifactId&gt;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -489,7 +489,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
