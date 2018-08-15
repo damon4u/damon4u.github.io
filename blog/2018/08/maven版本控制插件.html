@@ -65,7 +65,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="idea," />
+  <meta name="keywords" content="maven," />
 
 
 
@@ -83,21 +83,18 @@
 
 
 
-<meta name="description" content="IDEA中默认生成的toString()方法使用加号拼接，并且加号在每一行的末尾，导致checkstyle检查不通过，并且，如果频繁打印日志，也会产生大量字符串常量。下面通过重写toString()方法，将其改为StringBuilder拼接Json。">
-<meta name="keywords" content="idea">
+<meta name="description" content="versions-maven-plugin插件可以用来方便的管理父子模块的版本。 参考Versions Maven Plugin Doc Versions Maven Plugin">
+<meta name="keywords" content="maven">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IDEA重写toString()模板">
-<meta property="og:url" content="https://damon4u.github.io/blog/2018/07/IDEA重写toString()模板.html">
+<meta property="og:title" content="maven版本控制插件">
+<meta property="og:url" content="https://damon4u.github.io/blog/2018/08/maven版本控制插件.html">
 <meta property="og:site_name" content="是五月呀！">
-<meta property="og:description" content="IDEA中默认生成的toString()方法使用加号拼接，并且加号在每一行的末尾，导致checkstyle检查不通过，并且，如果频繁打印日志，也会产生大量字符串常量。下面通过重写toString()方法，将其改为StringBuilder拼接Json。">
+<meta property="og:description" content="versions-maven-plugin插件可以用来方便的管理父子模块的版本。 参考Versions Maven Plugin Doc Versions Maven Plugin">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://damon4u.github.io/images/idea1.jpeg">
-<meta property="og:image" content="https://damon4u.github.io/images/idea2.jpeg">
-<meta property="og:updated_time" content="2018-08-10T06:11:00.805Z">
+<meta property="og:updated_time" content="2018-08-15T13:38:12.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IDEA重写toString()模板">
-<meta name="twitter:description" content="IDEA中默认生成的toString()方法使用加号拼接，并且加号在每一行的末尾，导致checkstyle检查不通过，并且，如果频繁打印日志，也会产生大量字符串常量。下面通过重写toString()方法，将其改为StringBuilder拼接Json。">
-<meta name="twitter:image" content="https://damon4u.github.io/images/idea1.jpeg">
+<meta name="twitter:title" content="maven版本控制插件">
+<meta name="twitter:description" content="versions-maven-plugin插件可以用来方便的管理父子模块的版本。 参考Versions Maven Plugin Doc Versions Maven Plugin">
 
 
 
@@ -125,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://damon4u.github.io/blog/2018/07/IDEA重写toString()模板.html"/>
+  <link rel="canonical" href="https://damon4u.github.io/blog/2018/08/maven版本控制插件.html"/>
 
 
 
 
 
-  <title> IDEA重写toString()模板 | 是五月呀！ </title>
+  <title> maven版本控制插件 | 是五月呀！ </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/07/IDEA重写toString()模板.html">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/08/maven版本控制插件.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="五月y">
@@ -288,7 +285,7 @@
             
             
               
-                IDEA重写toString()模板
+                maven版本控制插件
               
             
           </h2>
@@ -303,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-13T17:41:50+08:00">
-                2018-07-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-15T16:41:50+08:00">
+                2018-08-15
               </time>
             
 
@@ -326,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/" itemprop="url" rel="index">
-                    <span itemprop="name">idea</span>
+                  <a href="/categories/maven/" itemprop="url" rel="index">
+                    <span itemprop="name">maven</span>
                   </a>
                 </span>
 
@@ -353,7 +350,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">194(字)</span>
+           <span class="post-count">389(字)</span>
 
          </span>
 
@@ -363,7 +360,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">1(分)</span>
+           <span class="post-count">2(分)</span>
          </span>
 
           
@@ -384,9 +381,20 @@
       
 
       
-        <p>IDEA中默认生成的toString()方法使用加号拼接，并且加号在每一行的末尾，导致checkstyle检查不通过，并且，如果频繁打印日志，也会产生大量字符串常量。<br>下面通过重写toString()方法，将其改为StringBuilder拼接Json。</p>
+        <p>versions-maven-plugin插件可以用来方便的管理父子模块的版本。</p>
+<p>参考Versions Maven Plugin Doc <a href="https://www.mojohaus.org/versions-maven-plugin/usage.html" target="_blank" rel="external">Versions Maven Plugin</a></p>
 <a id="more"></a>
-<p>首先在某个类中输入快捷键<code>Ctrl+Enter</code>，弹出的Generate对话框中选择toString()，然后选择Settings：<br><img src="/images/idea1.jpeg" alt=""><br>在模板中点击新增：<br><img src="/images/idea2.jpeg" alt=""><br>名字随便起，内容填写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> java.lang.<span class="function">String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line"><span class="keyword">final</span> java.lang.StringBuilder sb = <span class="keyword">new</span> java.lang.StringBuilder(<span class="string">"$classname&#123;"</span>);</div><div class="line">#set ($i = 0)</div><div class="line">#foreach ($member in $members)#if ($i == 0)</div><div class="line">sb.append(<span class="string">"#####</span></div><div class="line"><span class="string">#else</span></div><div class="line">sb.append(",####</div><div class="line">#end#if ($member.string || $member.date)</div><div class="line">\<span class="string">"$member.name\":\""</span>)</div><div class="line">#else</div><div class="line">\<span class="string">"$member.name\":"</span>)</div><div class="line">#end#if ($member.primitiveArray || $member.objectArray)</div><div class="line">.append(java.util.Arrays.toString($member.name));</div><div class="line">#elseif ($member.string || $member.date)</div><div class="line">.append($member.accessor).append(<span class="string">'\"'</span>);</div><div class="line">#else</div><div class="line">.append($member.accessor);</div><div class="line">#end#set ($i = $i + 1)</div><div class="line">#end</div><div class="line">sb.append(<span class="string">'&#125;'</span>);</div><div class="line"><span class="keyword">return</span> sb.toString();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1.背景"></a>1.背景</h3><p>项目中经常会出现父子项目：<br>父pom<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">groupId</span>&gt;</span>group.parent<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>artifact.parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>artifact.child1<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>artifact.child2<span class="tag">&lt;/<span class="name">module</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后可能会有很多子module，<br>子模块1的pom<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>group.parent<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>artifact.parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>artifact.child1<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>子模块2的pom<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>group.parent<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>artifact.parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>artifact.child2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>当项目版本升级时，需要修改父pom和所有子pom的版本，很繁琐。</p>
+<p>versions-maven-plugin这个插件可以帮我们完成版本控制。</p>
+<h3 id="2-引入插件"><a href="#2-引入插件" class="headerlink" title="2.引入插件"></a>2.引入插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;plugins&gt;</div><div class="line">    &lt;plugin&gt;</div><div class="line">        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</div><div class="line">        &lt;artifactId&gt;versions-maven-plugin&lt;/artifactId&gt;</div><div class="line">        &lt;version&gt;2.3&lt;/version&gt;</div><div class="line">    &lt;/plugin&gt;</div><div class="line">&lt;/plugins&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-升级版本"><a href="#3-升级版本" class="headerlink" title="3.升级版本"></a>3.升级版本</h3><p>使用<code>versions:set</code>命令，修改项目版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn versions:set -DnewVersion=1.0.1-SNAPSHOT</div></pre></td></tr></table></figure></p>
+<p>或者在IDEA中双击，然后在运行界面输入新版本号。<br>此时会在项目中生成多个<code>pom.xml.versionBackup</code>文件。这些文件是用来回滚的。</p>
+<h3 id="4-提交升级"><a href="#4-提交升级" class="headerlink" title="4.提交升级"></a>4.提交升级</h3><p>如果升级版本没有问题，使用<code>versions:commit</code>命令确认，会删除生成的多个<code>pom.xml.versionBackup</code>文件。<br>注意，执行这个命令后，就不能使用下面的回滚命令回滚到最初的版本了。</p>
+<h3 id="5-回滚版本"><a href="#5-回滚版本" class="headerlink" title="5.回滚版本"></a>5.回滚版本</h3><p>使用<code>versions:revert</code>命令，回滚到备份中的版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mvn versions:revert</div></pre></td></tr></table></figure></p>
+<p>或者在IDEA中双击即可，之前生成的<code>pom.xml.versionBackup</code>文件也会被删掉。</p>
 
       
     </div>
@@ -400,7 +408,7 @@
   
         <div class="post-tags">
           
-            <a href="/tags/idea/" rel="tag"><i class="fa fa-tag"></i> idea</a>
+            <a href="/tags/maven/" rel="tag"><i class="fa fa-tag"></i> maven</a>
           
         </div>
       
@@ -412,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/07/ffmpeg.html" rel="next" title="ffmpeg常用操作">
-                <i class="fa fa-chevron-left"></i> ffmpeg常用操作
+              <a href="/blog/2018/08/事务隔离性.html" rel="next" title="事务隔离性">
+                <i class="fa fa-chevron-left"></i> 事务隔离性
               </a>
             
           </div>
@@ -421,10 +429,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/08/maven依赖传递性.html" rel="prev" title="maven依赖传递性">
-                maven依赖传递性 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -468,8 +472,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar2.jpg"
@@ -561,6 +574,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-背景"><span class="nav-number">1.</span> <span class="nav-text">1.背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-引入插件"><span class="nav-number">2.</span> <span class="nav-text">2.引入插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-升级版本"><span class="nav-number">3.</span> <span class="nav-text">3.升级版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-提交升级"><span class="nav-number">4.</span> <span class="nav-text">4.提交升级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-回滚版本"><span class="nav-number">5.</span> <span class="nav-text">5.回滚版本</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
