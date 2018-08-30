@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="是五月呀！">
 <meta property="og:description" content="curl命令可以方便的调试接口，发送网络请求。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-30T09:09:28.016Z">
+<meta property="og:updated_time" content="2018-08-30T09:34:56.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="curl命令">
 <meta name="twitter:description" content="curl命令可以方便的调试接口，发送网络请求。">
@@ -383,10 +383,13 @@
       
         <p>curl命令可以方便的调试接口，发送网络请求。</p>
 <a id="more"></a>
-<h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p><code>curl</code> - transfer a URL<br>curl  is  a  tool  to  transfer  data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS,<br>       GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS,  TELNET  and TFTP).</p>
+<h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p><code>curl</code> - transfer a URL</p>
+<blockquote>
+<p>curl  is  a  tool  to  transfer  data from or to a server, using one of the supported protocols (DICT, FILE, FTP, FTPS,GOPHER, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS,  TELNET  and TFTP).</p>
 <p>curl offers a busload of useful tricks like proxy support, user authentication, FTP upload, HTTP post, SSL connections, cookies, file transfer resume, Metalink, and more.</p>
+</blockquote>
 <p>格式如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl [options] [URL...]</div></pre></td></tr></table></figure></p>
-<p>以下将使用<a href="http://requestb.in/1g31nxf1?inspect作为测试URL，在request.bin网站上可以看到每次请求的全部内容，方便测试。" target="_blank" rel="external">http://requestb.in/1g31nxf1?inspect作为测试URL，在request.bin网站上可以看到每次请求的全部内容，方便测试。</a></p>
+<p>以下将使用<code>http://requestb.in/1g31nxf1?inspect</code>作为测试URL，在request.bin网站上可以看到每次请求的全部内容，方便测试。</p>
 <h3 id="2-GET"><a href="#2-GET" class="headerlink" title="2.GET"></a>2.GET</h3><p>如果不加任何参数，那么将会使用GET方法发送http请求。<br>例如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> ~/ curl "http://requestb.in/1g31nxf1"</div><div class="line"><span class="meta">ok%</span></div></pre></td></tr></table></figure></p>
 <p>这样就是一个最简单的GET请求，不包含任何参数和头信息。</p>
 <p>下面加一些请求参数：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"> ~/ curl "http://requestb.in/1g31nxf1?username=dj&amp;pwd=123"</div><div class="line"><span class="meta">ok%</span></div></pre></td></tr></table></figure></p>
