@@ -261,6 +261,369 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（九）mybatis插件之参数补全.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/10/IDEA插件开发（九）mybatis插件之参数补全.html" itemprop="url">
+                  IDEA插件开发（九）mybatis插件之参数补全
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-25T17:41:50+08:00">
+                2018-10-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/" itemprop="url" rel="index">
+                    <span itemprop="name">idea</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">805(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">4(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>IDEA插件开发时，可以有两种途径提供代码补全：</p>
+<ul>
+<li>实现<code>Reference</code>的<code>getVariants()</code>方法，返回一个数组，类型为<code>String</code>或者<code>PsiElement</code>或者<code>LookupElement</code>。这种方式只支持基本（basic）补全操作。</li>
+<li>继承<code>CompletionContributor</code>，支持basic、smart和class name三种补全方式。</li>
+</ul>
+<p>本文主要介绍继承<code>CompletionContributor</code>的方式。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/2018/10/IDEA插件开发（九）mybatis插件之参数补全.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+  
+
+
+    <footer class="post-footer">
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（八）mybatis插件之参数引用.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/10/IDEA插件开发（八）mybatis插件之参数引用.html" itemprop="url">
+                  IDEA插件开发（八）mybatis插件之参数引用
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-24T17:41:50+08:00">
+                2018-10-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/" itemprop="url" rel="index">
+                    <span itemprop="name">idea</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">2,118(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">9(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><a href="https://damon4u.github.io/blog/2018/10/IDEA%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%EF%BC%88%E4%B8%83%EF%BC%89mybatis%E6%8F%92%E4%BB%B6%E4%B9%8Bmapper%E8%A7%A3%E6%9E%90.html">IDEA插件开发（七）mybatis插件之mapper解析</a> 一文中使用到了<code>PropertyConverter</code>来为<code>property</code>属性添加引用，实现鼠标点击跳转，代码补全提示等功能，其中使用了<code>ContextPsiFieldReference</code>，它继承了<code>PsiReferenceBase</code>，实现<code>resolve()</code>方法来返回对应的引用对象。</p>
+<p>今天主要就说说引用（ <strong>PSI References</strong> ），以及如何单独注册引用。</p>
+<blockquote>
+<p>A reference in a PSI tree is an object that represents a link from a usage of a certain element in the code to the corresponding declaration. Resolving a reference means locating the declaration to which a specific usage refers.</p>
+<p>Resolving references gives users the ability to navigate from a PSI element usage (accessing a variable, calling a method and so on) to the declaration of that element (the variable’s definition, a method declaration and so on). This feature is needed in order to support the <code>Go to Declaration</code> action invoked by <strong>Ctrl-B</strong> and <strong>Ctrl-Click</strong>, and it is a prerequisite for implementing the Find Usages action, the Rename refactoring and code completion.</p>
+</blockquote>
+<p>举个例子，也就是我想要实现的效果。<br>Dao层有个方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">List&lt;User&gt; <span class="title">findByUserName</span><span class="params">(@Param(<span class="string">"userName"</span>)</span> String userName)</span>;</div></pre></td></tr></table></figure></p>
+<p>然后对应的mapper文件中的查询语句：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"findByUserName"</span> <span class="attr">resultType</span>=<span class="string">"com.damon4u.demo.domain.User"</span>&gt;</span></div><div class="line">    select id, user_name</div><div class="line">    from user</div><div class="line">    <span class="tag">&lt;<span class="name">where</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"userName != null"</span>&gt;</span></div><div class="line">            user_name like CONCAT('%',#&#123;userName&#125;,'%')</div><div class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">where</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>我现在想实现点击<code>#{userName}</code>中的<code>userName</code>能够跳转到Dao层方法的<code>userName</code>参数，即为xml中的参数添加引用。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/2018/10/IDEA插件开发（八）mybatis插件之参数引用.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+  
+
+
+    <footer class="post-footer">
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/Charles抓取HTTPS接口.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +788,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（七）mybatis插件之mapper解析.html">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（七）mybatis插件之mapper解析与converter.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="五月y">
@@ -450,8 +813,8 @@
             
               
                 
-                <a class="post-title-link" href="/blog/2018/10/IDEA插件开发（七）mybatis插件之mapper解析.html" itemprop="url">
-                  IDEA插件开发（七）mybatis插件之mapper解析
+                <a class="post-title-link" href="/blog/2018/10/IDEA插件开发（七）mybatis插件之mapper解析与converter.html" itemprop="url">
+                  IDEA插件开发（七）mybatis插件之mapper解析与converter
                 </a>
               
             
@@ -528,7 +891,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">4,097(字)</span>
+           <span class="post-count">4,121(字)</span>
 
          </span>
 
@@ -566,7 +929,7 @@
 <p>本文直接以mybatis的mapper文件解析为例，说明Dom操作的常用写法。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/10/IDEA插件开发（七）mybatis插件之mapper解析.html#more" rel="contents">
+            <a class="btn" href="/blog/2018/10/IDEA插件开发（七）mybatis插件之mapper解析与converter.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1649,364 +2012,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（二）DOM操作XML文件.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="五月y">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar2.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="是五月呀！">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2018/10/IDEA插件开发（二）DOM操作XML文件.html" itemprop="url">
-                  IDEA插件开发（二）DOM操作XML文件
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-10T16:41:50+08:00">
-                2018-10-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/" itemprop="url" rel="index">
-                    <span itemprop="name">idea</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">412(字)</span>
-
-         </span>
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">2(分)</span>
-         </span>
-
-          
-
-          
-
-
-
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="传统XML读写操作的弊端"><a href="#传统XML读写操作的弊端" class="headerlink" title="传统XML读写操作的弊端"></a>传统XML读写操作的弊端</h3><p>假如我们有一个xml文件如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">foo</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">bar</span>&gt;</span>42<span class="tag">&lt;/<span class="name">bar</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">bar</span>&gt;</span>239<span class="tag">&lt;/<span class="name">bar</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">foo</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>我们想读取第二个bar元素的值239，我们可能会直接这样写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">file.getDocument().getRootTag().findFirstSubTag(<span class="string">"foo"</span>).</div><div class="line">findSubTags(<span class="string">"bar"</span>)[<span class="number">1</span>].getValue().getTrimmedText()</div></pre></td></tr></table></figure></p>
-<p>但这样是很危险的，因为任何一个元素都可能产生空指针。所以需要这样写：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">XmlFile file = ...;</div><div class="line"><span class="keyword">final</span> XmlDocument document = file.getDocument();</div><div class="line"><span class="keyword">if</span> (document != <span class="keyword">null</span>) &#123;</div><div class="line">    <span class="keyword">final</span> XmlTag rootTag = document.getRootTag();</div><div class="line">    <span class="keyword">if</span> (rootTag != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">final</span> XmlTag foo = rootTag.findFirstSubTag(<span class="string">"foo"</span>);</div><div class="line">        <span class="keyword">if</span> (foo != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">final</span> XmlTag[] bars = foo.findSubTags(<span class="string">"bar"</span>);</div><div class="line">            <span class="keyword">if</span> (bars.length &gt; <span class="number">1</span>) &#123;</div><div class="line">                String s = bars[<span class="number">1</span>].getValue().getTrimmedText();</div><div class="line">                <span class="comment">// do something</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这样的写法看起来很臃肿，有一种更好的方案是使用DOM。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/10/IDEA插件开发（二）DOM操作XML文件.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-  
-
-
-    <footer class="post-footer">
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（一）环境搭建与第一个工程.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="五月y">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar2.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="是五月呀！">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2018/10/IDEA插件开发（一）环境搭建与第一个工程.html" itemprop="url">
-                  IDEA插件开发（一）环境搭建与第一个工程
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-09T16:41:50+08:00">
-                2018-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/" itemprop="url" rel="index">
-                    <span itemprop="name">idea</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/idea/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">950(字)</span>
-
-         </span>
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">4(分)</span>
-         </span>
-
-          
-
-          
-
-
-
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>官方推荐使用社区版IDEA开发插件，因为方便调试核心代码。</p>
-<blockquote>
-<p>You may use IntelliJ IDEA Ultimate as an alternative, but debugging the core code will only work with the Community Edition.</p>
-</blockquote>
-<p>我下载的版本是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">IntelliJ IDEA 2018.2.4 (Community Edition)</div><div class="line">Build #IC-182.4505.22, built on September 18, 2018</div></pre></td></tr></table></figure></p>
-<p>那么在<a href="https://github.com/JetBrains/intellij-community/tree/182.4505" target="_blank" rel="external">IntelliJ IDEA Community Edition</a> 下载对应版本的源码，解压后为<code>intellij-community-182.4505</code>。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/10/IDEA插件开发（一）环境搭建与第一个工程.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-  
-
-
-    <footer class="post-footer">
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2051,7 +2056,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
