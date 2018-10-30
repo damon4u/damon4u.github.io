@@ -1,0 +1,809 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="idea," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="是五月呀！" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="使用Mybatis进行开发时，还有一个常用场景是从DAO层方法跳转到XML标签，或者反过来从XML标签跳转到DAO层方法。可以使用lineMarkerProvider来实现该功能。  Line markers help to annotate any code with icons on the gutter. These icons may provide navigation to relat">
+<meta name="keywords" content="idea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA插件开发（十）mybatis插件之DAO与XML之间跳转">
+<meta property="og:url" content="https://damon4u.github.io/blog/2018/10/IDEA插件开发（十）mybatis插件之DAO与XML之间的跳转.html">
+<meta property="og:site_name" content="是五月呀！">
+<meta property="og:description" content="使用Mybatis进行开发时，还有一个常用场景是从DAO层方法跳转到XML标签，或者反过来从XML标签跳转到DAO层方法。可以使用lineMarkerProvider来实现该功能。  Line markers help to annotate any code with icons on the gutter. These icons may provide navigation to relat">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-30T15:33:27.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IDEA插件开发（十）mybatis插件之DAO与XML之间跳转">
+<meta name="twitter:description" content="使用Mybatis进行开发时，还有一个常用场景是从DAO层方法跳转到XML标签，或者反过来从XML标签跳转到DAO层方法。可以使用lineMarkerProvider来实现该功能。  Line markers help to annotate any code with icons on the gutter. These icons may provide navigation to relat">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（十）mybatis插件之DAO与XML之间的跳转.html"/>
+
+
+
+
+
+  <title> IDEA插件开发（十）mybatis插件之DAO与XML之间跳转 | 是五月呀！ </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">是五月呀！</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/IDEA插件开发（十）mybatis插件之DAO与XML之间的跳转.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                IDEA插件开发（十）mybatis插件之DAO与XML之间跳转
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T17:41:50+08:00">
+                2018-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/" itemprop="url" rel="index">
+                    <span itemprop="name">idea</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/idea/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">658(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">3(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>使用Mybatis进行开发时，还有一个常用场景是从DAO层方法跳转到XML标签，或者反过来从XML标签跳转到DAO层方法。<br>可以使用<code>lineMarkerProvider</code>来实现该功能。</p>
+<blockquote>
+<p>Line markers help to annotate any code with icons on the gutter. These icons may provide navigation to related code.</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="DAO层方法跳转到对应XML标签"><a href="#DAO层方法跳转到对应XML标签" class="headerlink" title="DAO层方法跳转到对应XML标签"></a>DAO层方法跳转到对应XML标签</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DaoToXmlLineMarkerProvider</span> <span class="keyword">extends</span> <span class="title">RelatedItemLineMarkerProvider</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Function&lt;DomElement, XmlTag&gt; FUNCTION = DomElement::getXmlTag;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">collectNavigationMarkers</span><span class="params">(@NotNull PsiElement element, @NotNull Collection&lt;? <span class="keyword">super</span> RelatedItemLineMarkerInfo&gt; result)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (element <span class="keyword">instanceof</span> PsiNameIdentifierOwner &amp;&amp; JavaUtils.isElementWithinInterface(element)) &#123;</div><div class="line">            CommonProcessors.CollectProcessor&lt;IdDomElement&gt; processor = <span class="keyword">new</span> CommonProcessors.CollectProcessor&lt;&gt;();</div><div class="line">            JavaService.getInstance(element.getProject()).process(element, processor);</div><div class="line">            Collection&lt;IdDomElement&gt; results = processor.getResults();</div><div class="line">            <span class="keyword">if</span> (!results.isEmpty()) &#123;</div><div class="line">                NavigationGutterIconBuilder&lt;PsiElement&gt; builder = NavigationGutterIconBuilder.create(Icons.DAO_TO_XML_LINE_MARKER_ICON)</div><div class="line">                        .setAlignment(GutterIconRenderer.Alignment.CENTER)</div><div class="line">                        .setTargets(Collections2.transform(results, FUNCTION))</div><div class="line">                        .setTooltipTitle(<span class="string">"Navigation to target in mapper xml"</span>);</div><div class="line">                PsiElement nameIdentifier = ((PsiNameIdentifierOwner) element).getNameIdentifier();</div><div class="line">                <span class="keyword">if</span> (nameIdentifier != <span class="keyword">null</span>) &#123;</div><div class="line">                    result.add(builder.createLineMarkerInfo(nameIdentifier));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>同样先过滤出DAO层接口，可能是接口本身，也可能是接口中的方法。<br>根据接口或者方法<code>PsiElement</code>寻找对应<code>IdDomElement</code>的逻辑在<code>JavaService#process()</code>方法中：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(@NotNull PsiElement target, @NotNull Processor processor)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (target <span class="keyword">instanceof</span> PsiMethod) &#123; <span class="comment">// dao方法</span></div><div class="line">        process((PsiMethod) target, processor);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (target <span class="keyword">instanceof</span> PsiClass) &#123; <span class="comment">// dao接口</span></div><div class="line">        process((PsiClass) target, processor);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(@NotNull PsiMethod psiMethod, @NotNull Processor&lt;IdDomElement&gt; processor)</span> </span>&#123;</div><div class="line">    PsiClass psiClass = psiMethod.getContainingClass();</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == psiClass) <span class="keyword">return</span>;</div><div class="line">    String id = psiClass.getQualifiedName() + <span class="string">"."</span> + psiMethod.getName();</div><div class="line">    <span class="keyword">for</span> (Mapper mapper : MapperUtils.findMappers(psiMethod.getProject())) &#123; <span class="comment">// 先根据命名空间找mapper</span></div><div class="line">        <span class="keyword">for</span> (IdDomElement idDomElement : mapper.getDaoElements()) &#123;</div><div class="line">            <span class="keyword">if</span> (MapperUtils.getIdSignature(idDomElement).equals(id)) &#123; <span class="comment">// 对比tag的id与方法名</span></div><div class="line">                processor.process(idDomElement);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(@NotNull PsiClass clazz, @NotNull Processor&lt;Mapper&gt; processor)</span> </span>&#123;</div><div class="line">    String ns = clazz.getQualifiedName();</div><div class="line">    <span class="keyword">for</span> (Mapper mapper : MapperUtils.findMappers(clazz.getProject())) &#123;</div><div class="line">        <span class="keyword">if</span> (MapperUtils.getNamespace(mapper).equals(ns)) &#123;</div><div class="line">            processor.process(mapper);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>找到符合的<code>IdDomElement</code>后，构造一个跳转<code>LineMarkerInfo</code>：<br>需要传入图标、布局、跳转目标和提示语。</p>
+<h3 id="XML标签跳转到DAO层方法"><a href="#XML标签跳转到DAO层方法" class="headerlink" title="XML标签跳转到DAO层方法"></a>XML标签跳转到DAO层方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XmlToDaoLineMarkerProvider</span> <span class="keyword">implements</span> <span class="title">LineMarkerProvider</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ImmutableList&lt;Class&lt;? extends DMLAndDQLDynamicQueryableDomElement&gt;&gt; TARGET_TYPES = ImmutableList.of(</div><div class="line">            Select.class,</div><div class="line">            Update.class,</div><div class="line">            Insert.class,</div><div class="line">            Delete.class</div><div class="line">    );</div><div class="line"></div><div class="line">    <span class="meta">@Nullable</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> LineMarkerInfo <span class="title">getLineMarkerInfo</span><span class="params">(@NotNull PsiElement element)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!isTargetElement(element)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        DomElement domElement = DomUtil.getDomElement(element);</div><div class="line">        <span class="keyword">if</span> (domElement == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        Optional&lt;PsiMethod&gt; method = JavaUtils.findMethod(element.getProject(), (IdDomElement) domElement);</div><div class="line">        <span class="keyword">return</span> method.map(psiMethod -&gt; <span class="keyword">new</span> LineMarkerInfo&lt;&gt;((XmlTag) element,</div><div class="line">                element.getTextRange(),</div><div class="line">                Icons.XML_TO_DAO_LINE_MARKER_ICON,</div><div class="line">                Pass.UPDATE_ALL,</div><div class="line">                getTooltipProvider(psiMethod),</div><div class="line">                getNavigationHandler(psiMethod),</div><div class="line">                GutterIconRenderer.Alignment.CENTER)).orElse(<span class="keyword">null</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">collectSlowLineMarkers</span><span class="params">(@NotNull List&lt;PsiElement&gt; elements, @NotNull Collection&lt;LineMarkerInfo&gt; result)</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isTargetElement</span><span class="params">(@NotNull PsiElement element)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> element <span class="keyword">instanceof</span> XmlTag</div><div class="line">                &amp;&amp; MapperUtils.isElementWithinMybatisFile(element)</div><div class="line">                &amp;&amp; isTargetType(element);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isTargetType</span><span class="params">(PsiElement element)</span> </span>&#123;</div><div class="line">        DomElement domElement = DomUtil.getDomElement(element);</div><div class="line">        <span class="keyword">for</span> (Class&lt;?&gt; clazz : TARGET_TYPES) &#123;</div><div class="line">            <span class="keyword">if</span> (clazz.isInstance(domElement))</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> Function&lt;XmlTag, String&gt; <span class="title">getTooltipProvider</span><span class="params">(<span class="keyword">final</span> PsiMethod target)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> from -&gt; getTooltip(target);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> GutterIconNavigationHandler&lt;XmlTag&gt; <span class="title">getNavigationHandler</span><span class="params">(<span class="keyword">final</span> PsiMethod target)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (e, from) -&gt; ((Navigatable) target.getNavigationElement()).navigate(<span class="keyword">true</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getTooltip</span><span class="params">(@NotNull PsiMethod target)</span> </span>&#123;</div><div class="line">        PsiClass containingClass = target.getContainingClass();</div><div class="line">        <span class="keyword">if</span> (containingClass == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"Data access object not found"</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Data access object found - "</span> + containingClass.getQualifiedName();</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个类继承自最基本的<code>LineMarkerProvider</code>，实现<code>getLineMarkerInfo</code>方法。<br>同样是先过滤，然后构造<code>LineMarkerInfo</code>。</p>
+<p>最后注册到<code>plugin.xml</code>中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 在java类或者方法行添加跳转到mapper的icon --&gt;</div><div class="line">&lt;codeInsight.lineMarkerProvider language=&quot;JAVA&quot;</div><div class="line">                                implementationClass=&quot;com.damon4u.plugin.mybatis.linemarker.DaoToXmlLineMarkerProvider&quot;/&gt;</div><div class="line"></div><div class="line">&lt;!-- 在mapper文件中添加跳转到java类的icon --&gt;</div><div class="line">&lt;codeInsight.lineMarkerProvider language=&quot;XML&quot;</div><div class="line">                                implementationClass=&quot;com.damon4u.plugin.mybatis.linemarker.XmlToDaoLineMarkerProvider&quot;/&gt;</div></pre></td></tr></table></figure></p>
+<p>参考：<br><a href="https://www.jetbrains.org/intellij/sdk/docs/tutorials/custom_language_support/line_marker_provider.html" target="_blank" rel="external">Line Marker Provider</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/idea/" rel="tag"><i class="fa fa-tag"></i> idea</a>
+          
+        </div>
+      
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/10/IDEA插件开发（九）mybatis插件之参数补全.html" rel="next" title="IDEA插件开发（九）mybatis插件之参数补全">
+                <i class="fa fa-chevron-left"></i> IDEA插件开发（九）mybatis插件之参数补全
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/10/IDEA插件开发（十一）mybatis插件之Xml校验.html" rel="prev" title="IDEA插件开发（十一）mybatis插件之Xml校验">
+                IDEA插件开发（十一）mybatis插件之Xml校验 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar2.jpg"
+               alt="五月y" />
+          <p class="site-author-name" itemprop="name">五月y</p>
+          <p class="site-description motion-element" itemprop="description">Hello 五月y!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DAO层方法跳转到对应XML标签"><span class="nav-number">1.</span> <span class="nav-text">DAO层方法跳转到对应XML标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML标签跳转到DAO层方法"><span class="nav-number">2.</span> <span class="nav-text">XML标签跳转到DAO层方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五月y</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+  
+  <script type="text/javascript" src="/vendors/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/src/love.js"></script>
+  -->
+  <!-- 动态线条背景 http://shenzekun.cn/hexo%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF.html -->
+  <!--
+    <script type="text/javascript" color="0,0,0" opacity='0.9' zIndex="-2" count="50" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  -->
+</body>
+</html>
