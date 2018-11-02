@@ -486,31 +486,6 @@
   </entry>
   
   <entry>
-    <title>git配置信息管理</title>
-    <link href="https://damon4u.github.io//blog/2018/09/git%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86.html"/>
-    <id>https://damon4u.github.io//blog/2018/09/git配置信息管理.html</id>
-    <published>2018-09-11T08:41:50.000Z</published>
-    <updated>2018-09-11T14:41:01.020Z</updated>
-    
-    <content type="html"><![CDATA[<p>查看git全局设置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config -l</div></pre></td></tr></table></figure></p><p>设置配置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global user.name=&quot;Your Name&quot;</div></pre></td></tr></table></figure></p><p>这里的<code>--global</code>参数表示示你这台机器上所有的Git仓库都会使用用这个配置,当然也可以对某个仓库指定不同的用用户名和Email地址。</p><p>配置别名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">git config --global alias.st status</div><div class="line">git config --global alias.co checkout</div><div class="line">git config --global alias.ci commit</div><div class="line">git config --global alias.br branch</div><div class="line">git config --global alias.unstage &apos;reset HEAD&apos;</div><div class="line">git config --global alias.last &apos;log -1&apos;</div><div class="line">git config --global alias.lg &quot;log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit&quot;</div></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;查看git全局设置信息：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;
-      
-    
-    </summary>
-    
-      <category term="git" scheme="https://damon4u.github.io/categories/git/"/>
-    
-    
-      <category term="git" scheme="https://damon4u.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
     <title>git回滚</title>
     <link href="https://damon4u.github.io//blog/2018/09/git%E5%9B%9E%E6%BB%9A.html"/>
     <id>https://damon4u.github.io//blog/2018/09/git回滚.html</id>
@@ -527,6 +502,31 @@
 &lt;p&gt;Given one or more existing commits, revert the changes that the related patches introduce, and record some new commits that record them. This requires your working tree to be clean (no modifications from the HEAD commit).&lt;/p&gt;
 &lt;p&gt;Note: git revert is used to record some new commits to reverse the effect of some earlier commits (often only a faulty one).&lt;br&gt;If you want to throw away all uncommitted changes in your working directory, you should see &lt;code&gt;git-reset&lt;/code&gt;, particularly the &lt;code&gt;--hard&lt;/code&gt; option.&lt;br&gt;If you want to extract specific files as they were in another commit, you should see &lt;code&gt;git-checkout&lt;/code&gt;, specifically the &lt;code&gt;git checkout &amp;lt;commit&amp;gt; -- &amp;lt;filename&amp;gt;&lt;/code&gt; syntax.&lt;br&gt;Take care with these alternatives as both will discard uncommitted changes in your working directory.&lt;/p&gt;
 &lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="git" scheme="https://damon4u.github.io/categories/git/"/>
+    
+    
+      <category term="git" scheme="https://damon4u.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git远程仓库管理</title>
+    <link href="https://damon4u.github.io//blog/2018/09/git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%AE%A1%E7%90%86.html"/>
+    <id>https://damon4u.github.io//blog/2018/09/git远程仓库管理.html</id>
+    <published>2018-09-11T08:41:50.000Z</published>
+    <updated>2018-11-02T16:26:37.930Z</updated>
+    
+    <content type="html"><![CDATA[<p>查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote -v</div></pre></td></tr></table></figure></p><p>添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@github.com:michaelliao/learngit.git</div></pre></td></tr></table></figure></p><p>修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url origin git@github.com:michaelliao/learngit.git</div></pre></td></tr></table></figure></p><p>或者：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote rm origin</div><div class="line">git remote add origin git@...git</div></pre></td></tr></table></figure></p><p>强制push覆盖远程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push -f &lt;remote&gt; &lt;branch&gt;</div></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;查看：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div 
+      
     
     </summary>
     
