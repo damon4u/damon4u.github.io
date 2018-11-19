@@ -1,0 +1,805 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="logback," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="是五月呀！" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="业务场景：日志系统整体迁入ELK，大体需要两种日志：  纯业务日志，记录业务代码中的信息； 访问日志，包括请求参数和返回结果。  关于ELK这里不做过多讲解，一般也是公司运维同事维护，这里只介绍如何将日志打印成可被收集输送到es的json格式。">
+<meta name="keywords" content="logback">
+<meta property="og:type" content="article">
+<meta property="og:title" content="logstash-logback-encoder使用">
+<meta property="og:url" content="https://damon4u.github.io/blog/2018/11/logstash-logback-encoder使用.html">
+<meta property="og:site_name" content="是五月呀！">
+<meta property="og:description" content="业务场景：日志系统整体迁入ELK，大体需要两种日志：  纯业务日志，记录业务代码中的信息； 访问日志，包括请求参数和返回结果。  关于ELK这里不做过多讲解，一般也是公司运维同事维护，这里只介绍如何将日志打印成可被收集输送到es的json格式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-19T10:33:46.354Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="logstash-logback-encoder使用">
+<meta name="twitter:description" content="业务场景：日志系统整体迁入ELK，大体需要两种日志：  纯业务日志，记录业务代码中的信息； 访问日志，包括请求参数和返回结果。  关于ELK这里不做过多讲解，一般也是公司运维同事维护，这里只介绍如何将日志打印成可被收集输送到es的json格式。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://damon4u.github.io/blog/2018/11/logstash-logback-encoder使用.html"/>
+
+
+
+
+
+  <title> logstash-logback-encoder使用 | 是五月呀！ </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">是五月呀！</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/11/logstash-logback-encoder使用.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                logstash-logback-encoder使用
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T17:41:50+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/logback/" itemprop="url" rel="index">
+                    <span itemprop="name">logback</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">1,265(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">7(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>业务场景：<br>日志系统整体迁入<a href="https://www.elastic.co/cn/elk-stack" target="_blank" rel="external">ELK</a>，大体需要两种日志：</p>
+<ul>
+<li>纯业务日志，记录业务代码中的信息；</li>
+<li>访问日志，包括请求参数和返回结果。</li>
+</ul>
+<p>关于ELK这里不做过多讲解，一般也是公司运维同事维护，这里只介绍如何将日志打印成可被收集输送到es的json格式。</p>
+<a id="more"></a>
+<p>选用的工具是目前应用广泛的<a href="https://github.com/logstash/logstash-logback-encoder" target="_blank" rel="external">Logback JSON encoder</a></p>
+<h3 id="业务日志"><a href="#业务日志" class="headerlink" title="业务日志"></a>业务日志</h3><p>首先是logback.xml配置：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"JSON_LOG"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">File</span>&gt;</span>$&#123;catalina.base&#125;/logs/stdout-json.log<span class="tag">&lt;/<span class="name">File</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> <span class="attr">class</span>=<span class="string">"net.logstash.logback.encoder.LogstashEncoder"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">jsonFactoryDecorator</span> <span class="attr">class</span>=<span class="string">"com.package.NoEscapingJsonFactoryDecorator"</span>/&gt;</span></div><div class="line">				<span class="comment">&lt;!-- 显示行号，类，方法信息 --&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">includeCallerData</span>&gt;</span>true<span class="tag">&lt;/<span class="name">includeCallerData</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;catalina.base&#125;/logs/stdout-json.log.%d&#123;yyyy-MM-dd&#125;<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"JSON_ASYNC"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.classic.AsyncAppender"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"JSON_LOG"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">discardingThreshold</span>&gt;</span>0<span class="tag">&lt;/<span class="name">discardingThreshold</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">queueSize</span>&gt;</span>1000<span class="tag">&lt;/<span class="name">queueSize</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">includeCallerData</span>&gt;</span>true<span class="tag">&lt;/<span class="name">includeCallerData</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"info"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"JSON_ASYNC"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>其中用到了一个<code>NoEscapingJsonFactoryDecorator</code>，用来取消对非ASCII字符的转码，防止换行符导致输出混乱。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoEscapingJsonFactoryDecorator</span> <span class="keyword">implements</span> <span class="title">JsonFactoryDecorator</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NoEscapingJsonFactoryDecorator</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> MappingJsonFactory <span class="title">decorate</span><span class="params">(MappingJsonFactory factory)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> (MappingJsonFactory)factory.disable(Feature.ESCAPE_NON_ASCII);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里还用到了异步打印的配置，比较常见。<br>业务代码中打印日志时就正常打印即可，没有什么特别。</p>
+<p>这样打印出来的日志就是json格式，默认包含如下字段(手动格式化了)：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"@timestamp"</span>: <span class="string">"2018-11-19T18:13:05.167+08:00"</span>,</div><div class="line">    <span class="attr">"@version"</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">"message"</span>: <span class="string">"your log message"</span>,</div><div class="line">    <span class="attr">"logger_name"</span>: <span class="string">"com.package.TestController"</span>,</div><div class="line">    <span class="attr">"thread_name"</span>: <span class="string">"http-bio-8181-exec-2"</span>,</div><div class="line">    <span class="attr">"level"</span>: <span class="string">"INFO"</span>,</div><div class="line">    <span class="attr">"level_value"</span>: <span class="number">20000</span>,</div><div class="line">    <span class="attr">"HOSTNAME"</span>: <span class="string">"xxx"</span>,</div><div class="line">    <span class="attr">"caller_class_name"</span>: <span class="string">"com.package.TestController"</span>,</div><div class="line">    <span class="attr">"caller_method_name"</span>: <span class="string">"testMethod"</span>,</div><div class="line">    <span class="attr">"caller_file_name"</span>: <span class="string">"TestController.java"</span>,</div><div class="line">    <span class="attr">"caller_line_number"</span>: <span class="number">239</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="访问日志"><a href="#访问日志" class="headerlink" title="访问日志"></a>访问日志</h3><p>其实Logback JSON encoder自身是支持访问信息打印的：<a href="https://github.com/logstash/logstash-logback-encoder#accessevent-fields" target="_blank" rel="external">AccessEvent Fields</a><br>但是我这里还想打印返回信息，所以没有用这个，还是用<a href="https://github.com/logstash/logstash-logback-encoder#loggingevent-fields" target="_blank" rel="external">LoggingEvent Fields</a>，增加自定义字段。<br>logback.xml配置基本一样：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"REQUEST_LOG"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">File</span>&gt;</span>$&#123;catalina.base&#125;/logs/request-json.log<span class="tag">&lt;/<span class="name">File</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">encoder</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> <span class="attr">class</span>=<span class="string">"net.logstash.logback.encoder.LogstashEncoder"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">jsonFactoryDecorator</span> <span class="attr">class</span>=<span class="string">"com.package.NoEscapingJsonFactoryDecorator"</span>/&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>$&#123;catalina.base&#125;/logs/request-json.log.%d&#123;yyyy-MM-dd&#125;<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"REQUEST_ASYNC"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.classic.AsyncAppender"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"REQUEST_LOG"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">discardingThreshold</span>&gt;</span>0<span class="tag">&lt;/<span class="name">discardingThreshold</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">queueSize</span>&gt;</span>1000<span class="tag">&lt;/<span class="name">queueSize</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">includeCallerData</span>&gt;</span>true<span class="tag">&lt;/<span class="name">includeCallerData</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">appender</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"requestLog"</span> <span class="attr">level</span>=<span class="string">"INFO"</span> <span class="attr">additivity</span>=<span class="string">"false"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"REQUEST_LOG"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">logger</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>重点是在打印日志时，需要设置自定义属性，使用的是<a href="https://github.com/logstash/logstash-logback-encoder#event-specific-custom-fields" target="_blank" rel="external">Markers</a>来实现。<br>文章中介绍了两种技术：</p>
+<ul>
+<li>Markers：只在外层json输出打印，不在message字段中追加；</li>
+<li>StructuredArguments：在外层json输出中打印，同时在message字段中追加。</li>
+</ul>
+<p>对于访问日志，只需要在外层json输出打印即可。</p>
+<p>文档中提供的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="keyword">static</span> net.logstash.logback.marker.Markers.*</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Add "name":"value" to the JSON output.</span></div><div class="line"><span class="comment"> */</span></div><div class="line">logger.info(append(<span class="string">"name"</span>, <span class="string">"value"</span>), <span class="string">"log message"</span>);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Add "name1":"value1","name2":"value2" to the JSON output by using multiple markers.</span></div><div class="line"><span class="comment"> */</span></div><div class="line">logger.info(append(<span class="string">"name1"</span>, <span class="string">"value1"</span>).and(append(<span class="string">"name2"</span>, <span class="string">"value2"</span>)), <span class="string">"log message"</span>);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Add "name1":"value1","name2":"value2" to the JSON output by using a map.</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * Note the values can be any object that can be serialized by Jackson's ObjectMapper</span></div><div class="line"><span class="comment"> * (e.g. other Maps, JsonNodes, numbers, arrays, etc)</span></div><div class="line"><span class="comment"> */</span></div><div class="line">Map myMap = <span class="keyword">new</span> HashMap();</div><div class="line">myMap.put(<span class="string">"name1"</span>, <span class="string">"value1"</span>);</div><div class="line">myMap.put(<span class="string">"name2"</span>, <span class="string">"value2"</span>);</div><div class="line">logger.info(appendEntries(myMap), <span class="string">"log message"</span>);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Add "array":[1,2,3] to the JSON output</span></div><div class="line"><span class="comment"> */</span></div><div class="line">logger.info(appendArray(<span class="string">"array"</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>), <span class="string">"log message"</span>);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Add "array":[1,2,3] to the JSON output by using raw json.</span></div><div class="line"><span class="comment"> * This allows you to use your own json seralization routine to construct the json output</span></div><div class="line"><span class="comment"> */</span></div><div class="line">logger.info(appendRaw(<span class="string">"array"</span>, <span class="string">"[1,2,3]"</span>), <span class="string">"log message"</span>);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Add any object that can be serialized by Jackson's ObjectMapper</span></div><div class="line"><span class="comment"> * (e.g. Maps, JsonNodes, numbers, arrays, etc)</span></div><div class="line"><span class="comment"> */</span></div><div class="line">logger.info(append(<span class="string">"object"</span>, myobject), <span class="string">"log message"</span>);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Add fields of any object that can be unwrapped by Jackson's UnwrappableBeanSerializer.</span></div><div class="line"><span class="comment"> * i.e. The fields of an object can be written directly into the json output.</span></div><div class="line"><span class="comment"> * This is similar to the @JsonUnwrapped annotation.</span></div><div class="line"><span class="comment"> */</span></div><div class="line">logger.info(appendFields(myobject), <span class="string">"log message"</span>);</div></pre></td></tr></table></figure></p>
+<p>我们在实际应用中的方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(<span class="string">"requestLog"</span>);</div><div class="line">LOGGER.info(append(<span class="string">"requestMethod"</span>, request.getMethod())</div><div class="line">			.and(append(<span class="string">"requestURI"</span>, request.getRequestURI()))</div><div class="line">			.and(append(<span class="string">"queryString"</span>, request.getQueryString())</div><div class="line">			.and(append(<span class="string">"responseStatus"</span>, response.getStatus()))</div><div class="line">			.and(append(<span class="string">"responseStatusReason"</span>, HttpStatus.valueOf(status).getReasonPhrase()))</div><div class="line">			.and(append(<span class="string">"responseContent"</span>, logContent))</div><div class="line">			.and(append(<span class="string">"costTime(ms)"</span>, System.currentTimeMillis() - startTime))</div><div class="line">				, <span class="string">"log message"</span>);</div></pre></td></tr></table></figure></p>
+<p>这样打印的结果(手动格式化了)如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"@timestamp"</span>: <span class="string">"2018-11-19T18:23:05.252+08:00"</span>,</div><div class="line">    <span class="attr">"@version"</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">"message"</span>: <span class="string">"log message"</span>,</div><div class="line">    <span class="attr">"logger_name"</span>: <span class="string">"requestLog"</span>,</div><div class="line">    <span class="attr">"thread_name"</span>: <span class="string">"http-bio-8181-exec-4"</span>,</div><div class="line">    <span class="attr">"level"</span>: <span class="string">"INFO"</span>,</div><div class="line">    <span class="attr">"level_value"</span>: <span class="number">20000</span>,</div><div class="line">    <span class="attr">"HOSTNAME"</span>: <span class="string">"xxx"</span>,</div><div class="line">    <span class="attr">"requestMethod"</span>: <span class="string">"GET"</span>,</div><div class="line">    <span class="attr">"requestURI"</span>: <span class="string">"/api/test"</span>,</div><div class="line">    <span class="attr">"queryString"</span>: <span class="string">"version=-1&amp;groupId=_user_a_"</span>,</div><div class="line">    <span class="attr">"responseStatus"</span>: <span class="number">200</span>,</div><div class="line">    <span class="attr">"responseStatusReason"</span>: <span class="string">"OK"</span>,</div><div class="line">    <span class="attr">"responseContent"</span>: <span class="string">"\"-1;-954377400228194665,1721842794179500781,-7660610975189358760;1542623015250\""</span>,</div><div class="line">    <span class="attr">"costTime(ms)"</span>: <span class="number">4</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>完整的打印日志Filter如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingFilter</span> <span class="keyword">extends</span> <span class="title">OncePerRequestFilter</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(<span class="string">"requestLog"</span>);</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 可以打印的返回类型集合</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> List&lt;MediaType&gt; VISIBLE_TYPES = Arrays.asList(</div><div class="line">            MediaType.valueOf(<span class="string">"text/*"</span>),</div><div class="line">            MediaType.APPLICATION_FORM_URLENCODED,</div><div class="line">            MediaType.APPLICATION_JSON,</div><div class="line">            MediaType.APPLICATION_XML,</div><div class="line">            MediaType.valueOf(<span class="string">"application/*+json"</span>),</div><div class="line">            MediaType.valueOf(<span class="string">"application/*+xml"</span>),</div><div class="line">            MediaType.MULTIPART_FORM_DATA</div><div class="line">    );</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doFilterInternal</span><span class="params">(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        <span class="keyword">if</span> (isAsyncDispatch(request)) &#123;</div><div class="line">            filterChain.doFilter(request, response);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            doFilterWrapped(wrapRequest(request), wrapResponse(response), filterChain);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doFilterWrapped</span><span class="params">(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response, FilterChain filterChain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        String queryString = request.getQueryString();</div><div class="line">        <span class="keyword">long</span> startTime = System.currentTimeMillis();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            filterChain.doFilter(request, response);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">finally</span> &#123;</div><div class="line">            doLog(request, queryString, startTime, response);</div><div class="line">            response.copyBodyToResponse();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doLog</span><span class="params">(ContentCachingRequestWrapper request, String queryString, <span class="keyword">long</span> startTime, ContentCachingResponseWrapper response)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> status = response.getStatus();</div><div class="line">        <span class="keyword">byte</span>[] content = response.getContentAsByteArray();</div><div class="line">        String logContent = <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span> (content.length &gt; <span class="number">0</span>) &#123;</div><div class="line">            logContent = getLogContent(content, response.getContentType(), response.getCharacterEncoding());</div><div class="line">        &#125;</div><div class="line">        LOGGER.info(append(<span class="string">"requestMethod"</span>, request.getMethod())</div><div class="line">                        .and(append(<span class="string">"requestURI"</span>, request.getRequestURI()))</div><div class="line">                        .and(append(<span class="string">"queryString"</span>, queryString == <span class="keyword">null</span> ? <span class="string">""</span> : queryString))</div><div class="line">                        .and(append(<span class="string">"responseStatus"</span>, status))</div><div class="line">                        .and(append(<span class="string">"responseStatusReason"</span>, HttpStatus.valueOf(status).getReasonPhrase()))</div><div class="line">                        .and(append(<span class="string">"responseContent"</span>, logContent))</div><div class="line">                        .and(append(<span class="string">"costTime(ms)"</span>, System.currentTimeMillis() - startTime))</div><div class="line">                , <span class="string">"log message"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getLogContent</span><span class="params">(<span class="keyword">byte</span>[] content, String contentType, String contentEncoding)</span> </span>&#123;</div><div class="line">        MediaType mediaType = MediaType.valueOf(contentType);</div><div class="line">        <span class="keyword">boolean</span> visible = <span class="keyword">false</span>;</div><div class="line">        <span class="keyword">for</span> (MediaType me : VISIBLE_TYPES) &#123;</div><div class="line">            <span class="keyword">if</span> (me.includes(mediaType)) &#123;</div><div class="line">                visible = <span class="keyword">true</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (visible) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> String(content, contentEncoding);</div><div class="line">            &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</div><div class="line">                LOGGER.error(e.getMessage());</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> ContentCachingRequestWrapper <span class="title">wrapRequest</span><span class="params">(HttpServletRequest request)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (request <span class="keyword">instanceof</span> ContentCachingRequestWrapper) &#123;</div><div class="line">            <span class="keyword">return</span> (ContentCachingRequestWrapper) request;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ContentCachingRequestWrapper(request);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> ContentCachingResponseWrapper <span class="title">wrapResponse</span><span class="params">(HttpServletResponse response)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (response <span class="keyword">instanceof</span> ContentCachingResponseWrapper) &#123;</div><div class="line">            <span class="keyword">return</span> (ContentCachingResponseWrapper) response;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ContentCachingResponseWrapper(response);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/logback/" rel="tag"><i class="fa fa-tag"></i> logback</a>
+          
+        </div>
+      
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/11/logback基本配置.html" rel="next" title="logback基本配置">
+                <i class="fa fa-chevron-left"></i> logback基本配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar2.jpg"
+               alt="五月y" />
+          <p class="site-author-name" itemprop="name">五月y</p>
+          <p class="site-description motion-element" itemprop="description">Hello 五月y!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#业务日志"><span class="nav-number">1.</span> <span class="nav-text">业务日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问日志"><span class="nav-number">2.</span> <span class="nav-text">访问日志</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五月y</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+  
+  <script type="text/javascript" src="/vendors/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/src/love.js"></script>
+  -->
+  <!-- 动态线条背景 http://shenzekun.cn/hexo%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF.html -->
+  <!--
+    <script type="text/javascript" color="0,0,0" opacity='0.9' zIndex="-2" count="50" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  -->
+</body>
+</html>
