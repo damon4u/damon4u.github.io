@@ -261,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/09/git撤销修改.html">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/09/git远程仓库管理.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="五月y">
@@ -286,8 +286,8 @@
             
               
                 
-                <a class="post-title-link" href="/blog/2018/09/git撤销修改.html" itemprop="url">
-                  git撤销修改
+                <a class="post-title-link" href="/blog/2018/09/git远程仓库管理.html" itemprop="url">
+                  git远程仓库管理
                 </a>
               
             
@@ -353,7 +353,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">2,197(字)</span>
+           <span class="post-count">58(字)</span>
 
          </span>
 
@@ -363,7 +363,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">10(分)</span>
+           <span class="post-count">1(分)</span>
          </span>
 
           
@@ -385,184 +385,14 @@
 
       
         
-          <p>基本的命令含义参考:<a href="https://github.com/geeeeeeeeek/git-recipes/wiki/5.2-%E4%BB%A3%E7%A0%81%E5%9B%9E%E6%BB%9A%EF%BC%9AReset%E3%80%81Checkout%E3%80%81Revert%E7%9A%84%E9%80%89%E6%8B%A9" target="_blank" rel="external">代码回滚：Reset、Checkout、Revert的选择</a></p>
-<p>初始化一个空的测试目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> ~/git/ git init</div><div class="line">Initialized empty Git repository in /Users/git/.git/</div><div class="line"> ~/git/ [master] ls</div><div class="line"> ~/git/ [master]</div></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/09/git撤销修改.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-  
-
-
-    <footer class="post-footer">
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/09/git回滚.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="五月y">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar2.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="是五月呀！">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2018/09/git回滚.html" itemprop="url">
-                  git回滚
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T16:41:50+08:00">
-                2018-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
+          
+            <p>查看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote -v</div></pre></td></tr></table></figure></p>
+<p>添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@github.com:michaelliao/learngit.git</div></pre></td></tr></table></figure></p>
+<p>修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url origin git@github.com:michaelliao/learngit.git</div></pre></td></tr></table></figure></p>
+<p>或者：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote rm origin</div><div class="line">git remote add origin git@...git</div></pre></td></tr></table></figure></p>
+<p>强制push覆盖远程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push -f &lt;remote&gt; &lt;branch&gt;</div></pre></td></tr></table></figure></p>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">937(字)</span>
-
-         </span>
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">4(分)</span>
-         </span>
-
-          
-
-          
-
-
-
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-git-revert"><a href="#1-git-revert" class="headerlink" title="1.git revert"></a>1.git revert</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git revert &lt;commit&gt;</div></pre></td></tr></table></figure>
-<p>命令的含义是:</p>
-<blockquote>
-<p>Given one or more existing commits, revert the changes that the related patches introduce, and record some new commits that record them. This requires your working tree to be clean (no modifications from the HEAD commit).</p>
-<p>Note: git revert is used to record some new commits to reverse the effect of some earlier commits (often only a faulty one).<br>If you want to throw away all uncommitted changes in your working directory, you should see <code>git-reset</code>, particularly the <code>--hard</code> option.<br>If you want to extract specific files as they were in another commit, you should see <code>git-checkout</code>, specifically the <code>git checkout &lt;commit&gt; -- &lt;filename&gt;</code> syntax.<br>Take care with these alternatives as both will discard uncommitted changes in your working directory.</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/09/git回滚.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -730,6 +560,658 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+  
+
+
+    <footer class="post-footer">
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/09/git配置信息管理.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/09/git配置信息管理.html" itemprop="url">
+                  git配置信息管理
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T16:41:50+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">145(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">1(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>查看git全局设置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config -l</div></pre></td></tr></table></figure></p>
+<p>设置配置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global user.name=&quot;Your Name&quot;</div></pre></td></tr></table></figure></p>
+<p>这里的<code>--global</code>参数表示示你这台机器上所有的Git仓库都会使用用这个配置,当然也可以对某个仓库指定不同的用用户名和Email地址。</p>
+<p>配置别名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">git config --global alias.st status</div><div class="line">git config --global alias.co checkout</div><div class="line">git config --global alias.ci commit</div><div class="line">git config --global alias.br branch</div><div class="line">git config --global alias.unstage &apos;reset HEAD&apos;</div><div class="line">git config --global alias.last &apos;log -1&apos;</div><div class="line">git config --global alias.lg &quot;log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit&quot;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+  
+
+
+    <footer class="post-footer">
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/09/git删除操作.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/09/git删除操作.html" itemprop="url">
+                  git删除操作
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T16:41:50+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">228(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">1(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-同时从本地与版本库中删除"><a href="#1-同时从本地与版本库中删除" class="headerlink" title="1.同时从本地与版本库中删除"></a>1.同时从本地与版本库中删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rm [-r] [-n] &lt;file&gt;</div></pre></td></tr></table></figure>
+<p><code>-r</code>参数递归移除目录。<br><code>-n</code>加上这个参数，执行命令时，是不会删除任何文件，而是展示此命令要删除的文件列表预览，所以一般用这个参数先看看要删除哪些文件，防止误删，确认之后，就去掉此参数，真正的删除文件。</p>
+<h3 id="2-仅从版本库中删除"><a href="#2-仅从版本库中删除" class="headerlink" title="2.仅从版本库中删除"></a>2.仅从版本库中删除</h3><p>我们想把文件从 Git 仓库中删除(亦即从暂存区域移除),但仍然希 望保留在当前工作目录中。换句话说,仅是从跟踪清单中删除。<br>比如一些大型日志文件或者一堆.a 编译文件,不小心纳入仓库后,要移除跟踪但不删除文件,以便稍后在 .gitignore 文件中补上,用 –cached 选项即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git rm [-r] [-n] --cached &lt;file&gt;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+  
+
+
+    <footer class="post-footer">
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/09/git撤销修改.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/09/git撤销修改.html" itemprop="url">
+                  git撤销修改
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T16:41:50+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">2,197(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">10(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>基本的命令含义参考:<a href="https://github.com/geeeeeeeeek/git-recipes/wiki/5.2-%E4%BB%A3%E7%A0%81%E5%9B%9E%E6%BB%9A%EF%BC%9AReset%E3%80%81Checkout%E3%80%81Revert%E7%9A%84%E9%80%89%E6%8B%A9" target="_blank" rel="external">代码回滚：Reset、Checkout、Revert的选择</a></p>
+<p>初始化一个空的测试目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"> ~/git/ git init</div><div class="line">Initialized empty Git repository in /Users/git/.git/</div><div class="line"> ~/git/ [master] ls</div><div class="line"> ~/git/ [master]</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/2018/09/git撤销修改.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+  
+
+
+    <footer class="post-footer">
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/09/git分支操作.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/09/git分支操作.html" itemprop="url">
+                  git分支操作
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T16:41:50+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">29(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">1(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-checkout远程分支到本地"><a href="#1-checkout远程分支到本地" class="headerlink" title="1.checkout远程分支到本地"></a>1.checkout远程分支到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b &lt;local_branch_name&gt; origin/&lt;remote_branch_name&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-提交到远程分支"><a href="#2-提交到远程分支" class="headerlink" title="2.提交到远程分支"></a>2.提交到远程分支</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin &lt;remote_branch_name&gt;</div></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -1414,507 +1896,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/08/maven版本控制插件.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="五月y">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar2.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="是五月呀！">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2018/08/maven版本控制插件.html" itemprop="url">
-                  maven版本控制插件
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-15T16:41:50+08:00">
-                2018-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/maven/" itemprop="url" rel="index">
-                    <span itemprop="name">maven</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">389(字)</span>
-
-         </span>
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">2(分)</span>
-         </span>
-
-          
-
-          
-
-
-
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>versions-maven-plugin插件可以用来方便的管理父子模块的版本。</p>
-<p>参考Versions Maven Plugin Doc <a href="https://www.mojohaus.org/versions-maven-plugin/usage.html" target="_blank" rel="external">Versions Maven Plugin</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/08/maven版本控制插件.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-  
-
-
-    <footer class="post-footer">
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/08/事务隔离性.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="五月y">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar2.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="是五月呀！">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2018/08/事务隔离性.html" itemprop="url">
-                  事务隔离性
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-14T16:41:50+08:00">
-                2018-08-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">2,091(字)</span>
-
-         </span>
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">9(分)</span>
-         </span>
-
-          
-
-          
-
-
-
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。</p>
-<p>即要达到这么一种效果：对于任意两个并发的事务T1和T2，在事务T1看来，T2要么在T1开始之前就已经结束，要么在T1结束之后才开始，这样每个事务都感觉不到有其他事务在并发地执行。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/08/事务隔离性.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-  
-
-
-    <footer class="post-footer">
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/08/貂蝉.html">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="五月y">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar2.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="是五月呀！">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2018/08/貂蝉.html" itemprop="url">
-                  貂蝉
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-10T17:41:50+08:00">
-                2018-08-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/王者荣耀/" itemprop="url" rel="index">
-                    <span itemprop="name">王者荣耀</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">139(字)</span>
-
-         </span>
-
-         <span class="post-time">
-         <span class="post-meta-divider">|</span>
-           <span class="post-meta-item-icon">
-             <i class="fa fa-calendar-o"></i>
-           </span>
-           <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">1(分)</span>
-         </span>
-
-          
-
-          
-
-
-
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>貂蝉。</p>
-<p><code>今夜我就是你的圣诞礼物，喜欢吗</code></p>
-<p><img src="/images/wzry8.gif" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/blog/2018/08/貂蝉.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-  
-
-
-    <footer class="post-footer">
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1954,7 +1940,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
