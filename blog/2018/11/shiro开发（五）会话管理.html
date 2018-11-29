@@ -1,0 +1,847 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="shiro," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="是五月呀！" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Shiro提供了完整的企业级会话管理功能，不依赖于底层容器（如web容器tomcat），不管JavaSE还是JavaEE环境都可以使用，提供了会话管理、会话事件监听、会话存储/持久化、容器无关的集群、失效/过期支持、对Web的透明支持、SSO单点登录的支持等特性。即直接使用Shiro的会话管理可以直接替换如Web容器的会话管理。 会话（session）所谓会话，即用户访问应用时保持的连接关系，在多">
+<meta name="keywords" content="shiro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shiro开发（五）会话管理">
+<meta property="og:url" content="https://damon4u.github.io/blog/2018/11/shiro开发（五）会话管理.html">
+<meta property="og:site_name" content="是五月呀！">
+<meta property="og:description" content="Shiro提供了完整的企业级会话管理功能，不依赖于底层容器（如web容器tomcat），不管JavaSE还是JavaEE环境都可以使用，提供了会话管理、会话事件监听、会话存储/持久化、容器无关的集群、失效/过期支持、对Web的透明支持、SSO单点登录的支持等特性。即直接使用Shiro的会话管理可以直接替换如Web容器的会话管理。 会话（session）所谓会话，即用户访问应用时保持的连接关系，在多">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://damon4u.github.io/images/shiro1.png">
+<meta property="og:updated_time" content="2018-11-29T05:47:06.401Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="shiro开发（五）会话管理">
+<meta name="twitter:description" content="Shiro提供了完整的企业级会话管理功能，不依赖于底层容器（如web容器tomcat），不管JavaSE还是JavaEE环境都可以使用，提供了会话管理、会话事件监听、会话存储/持久化、容器无关的集群、失效/过期支持、对Web的透明支持、SSO单点登录的支持等特性。即直接使用Shiro的会话管理可以直接替换如Web容器的会话管理。 会话（session）所谓会话，即用户访问应用时保持的连接关系，在多">
+<meta name="twitter:image" content="https://damon4u.github.io/images/shiro1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://damon4u.github.io/blog/2018/11/shiro开发（五）会话管理.html"/>
+
+
+
+
+
+  <title> shiro开发（五）会话管理 | 是五月呀！ </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">是五月呀！</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/11/shiro开发（五）会话管理.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="五月y">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar2.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="是五月呀！">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="是五月呀！" src="/images/avatar2.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                shiro开发（五）会话管理
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-28T16:41:50+08:00">
+                2018-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/shiro/" itemprop="url" rel="index">
+                    <span itemprop="name">shiro</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">字数统计:</span>
+           <span class="post-count">2,514(字)</span>
+
+         </span>
+
+         <span class="post-time">
+         <span class="post-meta-divider">|</span>
+           <span class="post-meta-item-icon">
+             <i class="fa fa-calendar-o"></i>
+           </span>
+           <span class="post-meta-item-text">阅读时长:</span>
+           <span class="post-count">10(分)</span>
+         </span>
+
+          
+
+          
+
+
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Shiro提供了完整的企业级会话管理功能，不依赖于底层容器（如web容器tomcat），不管JavaSE还是JavaEE环境都可以使用，提供了会话管理、会话事件监听、会话存储/持久化、容器无关的集群、失效/过期支持、对Web的透明支持、SSO单点登录的支持等特性。即直接使用Shiro的会话管理可以直接替换如Web容器的会话管理。</p>
+<h3 id="会话（session）"><a href="#会话（session）" class="headerlink" title="会话（session）"></a>会话（session）</h3><p>所谓会话，即用户访问应用时保持的连接关系，在多次交互中应用能够识别出当前访问的用户是谁，且可以在多次交互中保存一些数据。<br>如访问一些网站时登录成功后，网站可以记住用户，且在退出之前都可以识别当前用户是谁。</p>
+<a id="more"></a>
+<p>Shiro的会话支持不仅可以在普通的JavaSE应用中使用，也可以在JavaEE应用中使用，如web应用。且使用方式是一致的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">login(<span class="string">"classpath:shiro.ini"</span>, <span class="string">"zhang"</span>, <span class="string">"123"</span>);  </div><div class="line">Subject subject = SecurityUtils.getSubject();  </div><div class="line">Session session = subject.getSession();</div></pre></td></tr></table></figure></p>
+<p>登录成功后使用<code>Subject.getSession()</code>即可获取会话；其等价于<code>Subject.getSession(true)</code>，即如果当前没有创建Session对象会创建一个；另外<code>Subject.getSession(false)</code>，如果当前没有创建Session则返回null（不过默认情况下如果启用会话存储功能的话在创建Subject时会主动创建一个Session）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取当前会话的唯一标识</span></div><div class="line">session.getId();  </div><div class="line"></div><div class="line"><span class="comment">// 获取当前Subject的主机地址，该地址是通过HostAuthenticationToken.getHost()提供的</span></div><div class="line">session.getHost();  </div><div class="line"></div><div class="line"><span class="comment">// 获取/设置当前Session的过期时间；如果不设置默认是会话管理器的全局过期时间</span></div><div class="line">session.getTimeout();  </div><div class="line">session.setTimeout(毫秒);   </div><div class="line"></div><div class="line"><span class="comment">// 获取会话的启动时间及最后访问时间；如果是JavaSE应用需要自己定期调用session.touch()去更新最后访问时间；</span></div><div class="line"><span class="comment">// 如果是Web应用，每次进入ShiroFilter都会自动调用session.touch()来更新最后访问时间</span></div><div class="line">session.getStartTimestamp();  </div><div class="line">session.getLastAccessTime();  </div><div class="line"></div><div class="line"><span class="comment">// 更新会话最后访问时间及销毁会话；</span></div><div class="line"><span class="comment">// 当Subject.logout()时会自动调用stop方法来销毁会话。</span></div><div class="line"><span class="comment">// 如果在web中，调用javax.servlet.http.HttpSession.invalidate()也会自动调用Shiro Session.stop方法进行销毁Shiro的会话</span></div><div class="line">session.touch();  </div><div class="line">session.stop();   </div><div class="line"></div><div class="line"><span class="comment">// 设置/获取/删除会话属性；在整个会话范围内都可以对这些属性进行操作</span></div><div class="line">session.setAttribute(<span class="string">"key"</span>, <span class="string">"123"</span>);  </div><div class="line">Assert.assertEquals(<span class="string">"123"</span>, session.getAttribute(<span class="string">"key"</span>));  </div><div class="line">session.removeAttribute(<span class="string">"key"</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="会话管理器"><a href="#会话管理器" class="headerlink" title="会话管理器"></a>会话管理器</h3><p>会话管理器管理着应用中所有<code>Subject</code>的会话的创建、维护、删除、失效、验证等工作，是Shiro的核心组件。<br>顶层组件<code>SecurityManager</code>直接继承了<code>SessionManager</code>，且提供了<code>SessionsSecurityManager</code>实现直接把会话管理委托给相应的<code>SessionManager</code>。<br><code>DefaultSecurityManager</code>及<code>DefaultWebSecurityManager</code>都继承了<code>SessionsSecurityManager</code>。<br>SecurityManager提供了如下接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function">Session <span class="title">start</span><span class="params">(SessionContext context)</span></span>; <span class="comment">//启动会话  </span></div><div class="line"><span class="function">Session <span class="title">getSession</span><span class="params">(SessionKey key)</span> <span class="keyword">throws</span> SessionException</span>; <span class="comment">//根据会话Key获取会话</span></div></pre></td></tr></table></figure></p>
+<p>另外用于Web环境的WebSessionManager又提供了如下接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isServletContainerSessions</span><span class="params">()</span></span>;<span class="comment">//是否使用Servlet容器的会话</span></div></pre></td></tr></table></figure></p>
+<p>Shiro还提供了ValidatingSessionManager用于验资并过期会话：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">validateSessions</span><span class="params">()</span></span>;<span class="comment">//验证所有会话是否过期</span></div></pre></td></tr></table></figure></p>
+<p>Shiro提供了三个默认实现：</p>
+<ul>
+<li><code>DefaultSessionManager</code>：使用的默认实现，用于JavaSE环境；</li>
+<li><code>ServletContainerSessionManager</code>：使用的默认实现，用于Web环境，其直接使用Servlet容器的会话；</li>
+<li><code>DefaultWebSessionManager</code>：用于Web环境的实现，可以替代<code>ServletContainerSessionManager</code>，自己维护着会话，直接废弃了Servlet容器的会话管理。</li>
+</ul>
+<p>在Servlet容器中，默认使用<code>JSESSIONID</code> Cookie维护会话，且会话默认是跟容器绑定的；<br>在某些情况下可能需要使用自己的会话机制，此时我们可以使用<code>DefaultWebSessionManager</code>来维护会话：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">sessionIdCookie=org.apache.shiro.web.servlet.SimpleCookie  </div><div class="line">sessionIdCookie.name=sid  </div><div class="line">#sessionIdCookie.domain=sishuok.com  </div><div class="line">#sessionIdCookie.path=  </div><div class="line">sessionIdCookie.maxAge=1800  </div><div class="line">sessionIdCookie.httpOnly=true  </div><div class="line">sessionManager=org.apache.shiro.web.session.mgt.DefaultWebSessionManager</div><div class="line">sessionManager.sessionIdCookie=$sessionIdCookie  </div><div class="line">sessionManager.sessionIdCookieEnabled=true  </div><div class="line">securityManager.sessionManager=$sessionManager</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>sessionIdCookie</code>是sessionManager创建会话Cookie的模板：</li>
+<li><code>sessionIdCookie.name</code>：设置Cookie名字，默认为 <strong>JSESSIONID</strong>；</li>
+<li><code>sessionIdCookie.domain</code>：设置Cookie的域名，默认空，即当前访问的域名；</li>
+<li><code>sessionIdCookie.path</code>：设置Cookie的路径，默认空，即存储在域名根下；</li>
+<li><code>sessionIdCookie.maxAge</code>：设置Cookie的过期时间，秒为单位，默认-1表示关闭浏览器时过期Cookie；</li>
+<li><code>sessionIdCookie.httpOnly</code>：如果设置为true，则客户端不会暴露给客户端脚本代码，使用<code>HttpOnly cookie</code>有助于减少某些类型的跨站点脚本攻击；此特性需要实现了Servlet 2.5 MR6及以上版本的规范的Servlet容器支持；</li>
+<li><code>sessionManager.sessionIdCookieEnabled</code>：是否启用/禁用<code>Session Id Cookie</code>，默认是启用的；如果禁用后将不会设置<code>Session Id Cookie</code>，即默认使用了Servlet容器的JSESSIONID，且通过URL重写（URL中的“;JSESSIONID=id”部分）保存Session Id。</li>
+</ul>
+<h3 id="会话存储-持久化"><a href="#会话存储-持久化" class="headerlink" title="会话存储/持久化"></a>会话存储/持久化</h3><p>Shiro提供<code>SessionDAO</code>用于会话的CRUD，即DAO（Data Access Object）模式实现：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如DefaultSessionManager在创建完session后会调用该方法；如保存到关系数据库/文件系统/NoSQL数据库；即可以实现会话的持久化；返回会话ID；主要此处返回的ID.equals(session.getId())；  </span></div><div class="line"><span class="function">Serializable <span class="title">create</span><span class="params">(Session session)</span></span>;  </div><div class="line"><span class="comment">//根据会话ID获取会话  </span></div><div class="line"><span class="function">Session <span class="title">readSession</span><span class="params">(Serializable sessionId)</span> <span class="keyword">throws</span> UnknownSessionException</span>;  </div><div class="line"><span class="comment">//更新会话；如更新会话最后访问时间/停止会话/设置超时时间/设置移除属性等会调用  </span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(Session session)</span> <span class="keyword">throws</span> UnknownSessionException</span>;  </div><div class="line"><span class="comment">//删除会话；当会话过期/会话停止（如用户退出时）会调用  </span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(Session session)</span></span>;  </div><div class="line"><span class="comment">//获取当前所有活跃用户，如果用户量多此方法影响性能  </span></div><div class="line"><span class="function">Collection&lt;Session&gt; <span class="title">getActiveSessions</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure></p>
+<p>Shiro内嵌了如下<code>SessionDAO</code>实现：</p>
+<p><img src="/images/shiro1.png" alt=""></p>
+<ul>
+<li><code>AbstractSessionDAO</code>：提供了<code>SessionDAO</code>的基础实现，如生成会话ID等；</li>
+<li><code>MemorySessionDAO</code>：直接在内存中进行会话维护；</li>
+<li><code>CachingSessionDAO</code>：提供了对开发者透明的会话缓存的功能，只需要设置相应的<code>CacheManager</code>即可；</li>
+<li><code>EnterpriseCacheSessionDAO</code>：继承自<code>CachingSessionDAO</code>，设置了<code>CacheManager</code>，提供了缓存功能的会话维护。默认情况下使用<code>MapCache</code>实现，内部使用<code>ConcurrentHashMap</code>保存缓存的会话。</li>
+</ul>
+<p>Shiro提供了使用Ehcache进行会话存储，Ehcache可以配合TerraCotta实现容器无关的分布式集群。<br>首先在pom.xml里添加如下依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shiro<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shiro-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>接着配置shiro-web.ini文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sessionDAO=org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO  </div><div class="line">sessionDAO.activeSessionsCacheName=shiro-activeSessionCache  </div><div class="line">sessionManager.sessionDAO=$sessionDAO  </div><div class="line">cacheManager=org.apache.shiro.cache.ehcache.EhCacheManager  </div><div class="line">cacheManager.cacheManagerConfigFile=classpath:ehcache.xml  </div><div class="line">securityManager.cacheManager = $cacheManager</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>sessionDAO.activeSessionsCacheName</code>：设置Session缓存名字，默认就是shiro-activeSessionCache；</li>
+<li><code>cacheManager</code>：缓存管理器，用于管理缓存的，此处使用Ehcache实现；</li>
+<li><code>cacheManager.cacheManagerConfigFile</code>：设置ehcache缓存的配置文件；</li>
+<li><code>securityManager.cacheManager</code>：设置SecurityManager的cacheManager，<strong>会自动设置实现了CacheManagerAware接口的相应对象，如SessionDAO的cacheManager</strong>；</li>
+</ul>
+<p>然后配置ehcache.xml：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">name</span>=<span class="string">"shiro-activeSessionCache"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">maxEntriesLocalHeap</span>=<span class="string">"10000"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">overflowToDisk</span>=<span class="string">"false"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">eternal</span>=<span class="string">"false"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">diskPersistent</span>=<span class="string">"false"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">timeToLiveSeconds</span>=<span class="string">"0"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">timeToIdleSeconds</span>=<span class="string">"0"</span>  </span></div><div class="line"><span class="tag">       <span class="attr">statistics</span>=<span class="string">"true"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+<p>Cache的名字为shiro-activeSessionCache，即设置的sessionDAO的activeSessionsCacheName属性值。</p>
+<p>如果自定义实现SessionDAO，继承CachingSessionDAO即可：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySessionDAO</span> <span class="keyword">extends</span> <span class="title">CachingSessionDAO</span> </span>&#123;  </div><div class="line">    <span class="keyword">private</span> JdbcTemplate jdbcTemplate = JdbcTemplateUtils.jdbcTemplate();  </div><div class="line">    <span class="function"><span class="keyword">protected</span> Serializable <span class="title">doCreate</span><span class="params">(Session session)</span> </span>&#123;  </div><div class="line">        Serializable sessionId = generateSessionId(session);  </div><div class="line">        assignSessionId(session, sessionId);  </div><div class="line">        String sql = <span class="string">"insert into sessions(id, session) values(?,?)"</span>;  </div><div class="line">        jdbcTemplate.update(sql, sessionId, SerializableUtils.serialize(session));  </div><div class="line">        <span class="keyword">return</span> session.getId();  </div><div class="line">    &#125;  </div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doUpdate</span><span class="params">(Session session)</span> </span>&#123;  </div><div class="line">        <span class="keyword">if</span>(session <span class="keyword">instanceof</span> ValidatingSession &amp;&amp; !((ValidatingSession)session).isValid()) &#123;  </div><div class="line">            <span class="keyword">return</span>; <span class="comment">//如果会话过期/停止 没必要再更新了  </span></div><div class="line">        &#125;  </div><div class="line">        String sql = <span class="string">"update sessions set session=? where id=?"</span>;  </div><div class="line">        jdbcTemplate.update(sql, SerializableUtils.serialize(session), session.getId());  </div><div class="line">    &#125;  </div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doDelete</span><span class="params">(Session session)</span> </span>&#123;  </div><div class="line">        String sql = <span class="string">"delete from sessions where id=?"</span>;  </div><div class="line">        jdbcTemplate.update(sql, session.getId());  </div><div class="line">    &#125;  </div><div class="line">    <span class="function"><span class="keyword">protected</span> Session <span class="title">doReadSession</span><span class="params">(Serializable sessionId)</span> </span>&#123;  </div><div class="line">        String sql = <span class="string">"select session from sessions where id=?"</span>;  </div><div class="line">        List&lt;String&gt; sessionStrList = jdbcTemplate.queryForList(sql, String.class, sessionId);  </div><div class="line">        <span class="keyword">if</span>(sessionStrList.size() == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">null</span>;  </div><div class="line">        <span class="keyword">return</span> SerializableUtils.deserialize(sessionStrList.get(<span class="number">0</span>));  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>doCreate/doUpdate/doDelete/doReadSession分别代表创建/修改/删除/读取会话；此处通过把会话序列化后存储到数据库实现。<br>其他设置和之前一样，因为继承了CachingSessionDAO，所有在读取时会先查缓存中是否存在，如果找不到才到数据库中查找。</p>
+<h3 id="会话验证"><a href="#会话验证" class="headerlink" title="会话验证"></a>会话验证</h3><p>Shiro提供了会话验证调度器，用于定期的验证会话是否已过期，如果过期将停止会话；出于性能考虑，一般情况下都是获取会话时来验证会话是否过期并停止会话的；但是如在web环境中，如果用户不主动退出是不知道会话是否过期的，因此需要定期的检测会话是否过期，Shiro提供了会话验证调度器SessionValidationScheduler来做这件事情。<br>可以通过如下ini配置开启会话验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">sessionValidationScheduler=org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler  </div><div class="line">sessionValidationScheduler.interval = 3600000  </div><div class="line">sessionValidationScheduler.sessionManager=$sessionManager  </div><div class="line">sessionManager.globalSessionTimeout=1800000  </div><div class="line">sessionManager.sessionValidationSchedulerEnabled=true  </div><div class="line">sessionManager.sessionValidationScheduler=$sessionValidationScheduler</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>sessionValidationScheduler</code>：会话验证调度器，sessionManager默认就是使用ExecutorServiceSessionValidationScheduler，其使用JDK的ScheduledExecutorService进行定期调度并验证会话是否过期；</li>
+<li><code>sessionValidationScheduler.interval</code>：设置调度时间间隔，单位毫秒，默认就是1小时；</li>
+<li><code>sessionValidationScheduler.sessionManager</code>：设置会话验证调度器进行会话验证时的会话管理器；</li>
+<li><code>sessionManager.globalSessionTimeout</code>：设置全局会话超时时间，默认30分钟，即如果30分钟内没有访问会话将过期；</li>
+<li><code>sessionManager.sessionValidationSchedulerEnabled</code>：是否开启会话验证器，默认是开启的；</li>
+<li><code>sessionManager.sessionValidationScheduler</code>：设置会话验证调度器，默认就是使用ExecutorServiceSessionValidationScheduler。</li>
+</ul>
+<p>Shiro也提供了使用Quartz会话验证调度器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sessionValidationScheduler=org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler  </div><div class="line">sessionValidationScheduler.sessionValidationInterval = 3600000  </div><div class="line">sessionValidationScheduler.sessionManager=$sessionManager</div></pre></td></tr></table></figure></p>
+<p>使用时需要导入shiro-quartz依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </div><div class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shiro<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </div><div class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shiro-quartz<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </div><div class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>如上会话验证调度器实现都是直接调用AbstractValidatingSessionManager 的validateSessions方法进行验证，其直接调用SessionDAO的getActiveSessions方法获取所有会话进行验证，如果会话比较多，会影响性能；<br>可以考虑如分页获取会话并进行验证：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//分页获取会话并验证  </span></div><div class="line">String sql = <span class="string">"select session from sessions limit ?,?"</span>;  </div><div class="line"><span class="keyword">int</span> start = <span class="number">0</span>; <span class="comment">//起始记录  </span></div><div class="line"><span class="keyword">int</span> size = <span class="number">20</span>; <span class="comment">//每页大小  </span></div><div class="line">List&lt;String&gt; sessionList = jdbcTemplate.queryForList(sql, String.class, start, size);  </div><div class="line"><span class="keyword">while</span>(sessionList.size() &gt; <span class="number">0</span>) &#123;  </div><div class="line">    <span class="keyword">for</span>(String sessionStr : sessionList) &#123;  </div><div class="line">        <span class="keyword">try</span> &#123;  </div><div class="line">            Session session = SerializableUtils.deserialize(sessionStr);  </div><div class="line">            Method validateMethod =   </div><div class="line">            ReflectionUtils.findMethod(AbstractValidatingSessionManager.class,<span class="string">"validate"</span>, Session.class, SessionKey.class);  </div><div class="line">            validateMethod.setAccessible(<span class="keyword">true</span>);  </div><div class="line">            ReflectionUtils.invokeMethod(validateMethod,   </div><div class="line">            sessionManager, session, <span class="keyword">new</span> DefaultSessionKey(session.getId()));  </div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;  </div><div class="line">          <span class="comment">//ignore  </span></div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">    start = start + size;  </div><div class="line">    sessionList = jdbcTemplate.queryForList(sql, String.class, start, size);  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>其直接改造自<code>ExecutorServiceSessionValidationScheduler</code>，如上代码是验证的核心代码，可以根据自己的需求改造此验证调度器器；ini的配置和之前的类似。</p>
+<p>参考：<br><a href="http://jinnianshilongnian.iteye.com/blog/2028675" target="_blank" rel="external">第十章 会话管理——《跟我学Shiro》</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/shiro/" rel="tag"><i class="fa fa-tag"></i> shiro</a>
+          
+        </div>
+      
+
+
+    <footer class="post-footer">
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/11/java序列化和serialVersionUID.html" rel="next" title="java序列化和serialVersionUID">
+                <i class="fa fa-chevron-left"></i> java序列化和serialVersionUID
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/11/shiro开发（六）缓存机制.html" rel="prev" title="shiro开发（六）缓存机制">
+                shiro开发（六）缓存机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar2.jpg"
+               alt="五月y" />
+          <p class="site-author-name" itemprop="name">五月y</p>
+          <p class="site-description motion-element" itemprop="description">Hello 五月y!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/damon4u" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#会话（session）"><span class="nav-number">1.</span> <span class="nav-text">会话（session）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#会话管理器"><span class="nav-number">2.</span> <span class="nav-text">会话管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#会话存储-持久化"><span class="nav-number">3.</span> <span class="nav-text">会话存储/持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#会话验证"><span class="nav-number">4.</span> <span class="nav-text">会话验证</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">五月y</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+  
+  <script type="text/javascript" src="/vendors/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <!-- <script type="text/javascript" src="/js/src/love.js"></script>
+  -->
+  <!-- 动态线条背景 http://shenzekun.cn/hexo%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%83%8C%E6%99%AF.html -->
+  <!--
+    <script type="text/javascript" color="0,0,0" opacity='0.9' zIndex="-2" count="50" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  -->
+</body>
+</html>

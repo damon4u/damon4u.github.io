@@ -65,7 +65,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="http," />
+  <meta name="keywords" content="shiro," />
 
 
 
@@ -83,22 +83,18 @@
 
 
 
-<meta name="description" content="日常开发过程中，可能会需要抓取线上https的接口，这里介绍使用 Charles 来实现。">
-<meta name="keywords" content="http">
+<meta name="description" content="Shiro提供了类似于Spring的Cache抽象，即Shiro本身不实现Cache，但是对Cache进行了又抽象，方便更换不同的底层Cache实现。 Shiro提供的Cache接口：12345678910111213141516public interface Cache&amp;lt;K, V&amp;gt; &amp;#123;      //根据Key获取缓存中的值      public V get(K key">
+<meta name="keywords" content="shiro">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Charles抓取HTTPS接口">
-<meta property="og:url" content="https://damon4u.github.io/blog/2018/10/Charles抓取HTTPS接口.html">
+<meta property="og:title" content="shiro开发（六）缓存机制">
+<meta property="og:url" content="https://damon4u.github.io/blog/2018/11/shiro开发（六）缓存机制.html">
 <meta property="og:site_name" content="是五月呀！">
-<meta property="og:description" content="日常开发过程中，可能会需要抓取线上https的接口，这里介绍使用 Charles 来实现。">
+<meta property="og:description" content="Shiro提供了类似于Spring的Cache抽象，即Shiro本身不实现Cache，但是对Cache进行了又抽象，方便更换不同的底层Cache实现。 Shiro提供的Cache接口：12345678910111213141516public interface Cache&amp;lt;K, V&amp;gt; &amp;#123;      //根据Key获取缓存中的值      public V get(K key">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://damon4u.github.io/images/charles1.png">
-<meta property="og:image" content="https://damon4u.github.io/images/charles2.jpeg">
-<meta property="og:image" content="https://damon4u.github.io/images/charles3.png">
-<meta property="og:updated_time" content="2018-10-22T14:34:19.220Z">
+<meta property="og:updated_time" content="2018-11-29T05:47:06.402Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Charles抓取HTTPS接口">
-<meta name="twitter:description" content="日常开发过程中，可能会需要抓取线上https的接口，这里介绍使用 Charles 来实现。">
-<meta name="twitter:image" content="https://damon4u.github.io/images/charles1.png">
+<meta name="twitter:title" content="shiro开发（六）缓存机制">
+<meta name="twitter:description" content="Shiro提供了类似于Spring的Cache抽象，即Shiro本身不实现Cache，但是对Cache进行了又抽象，方便更换不同的底层Cache实现。 Shiro提供的Cache接口：12345678910111213141516public interface Cache&amp;lt;K, V&amp;gt; &amp;#123;      //根据Key获取缓存中的值      public V get(K key">
 
 
 
@@ -126,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://damon4u.github.io/blog/2018/10/Charles抓取HTTPS接口.html"/>
+  <link rel="canonical" href="https://damon4u.github.io/blog/2018/11/shiro开发（六）缓存机制.html"/>
 
 
 
 
 
-  <title> Charles抓取HTTPS接口 | 是五月呀！ </title>
+  <title> shiro开发（六）缓存机制 | 是五月呀！ </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -265,7 +261,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/10/Charles抓取HTTPS接口.html">
+  <link itemprop="mainEntityOfPage" href="https://damon4u.github.io/blog/2018/11/shiro开发（六）缓存机制.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="五月y">
@@ -289,7 +285,7 @@
             
             
               
-                Charles抓取HTTPS接口
+                shiro开发（六）缓存机制
               
             
           </h2>
@@ -304,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-22T17:41:50+08:00">
-                2018-10-22
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-29T16:41:50+08:00">
+                2018-11-29
               </time>
             
 
@@ -327,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/http/" itemprop="url" rel="index">
-                    <span itemprop="name">http</span>
+                  <a href="/categories/shiro/" itemprop="url" rel="index">
+                    <span itemprop="name">shiro</span>
                   </a>
                 </span>
 
@@ -354,7 +350,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">345(字)</span>
+           <span class="post-count">517(字)</span>
 
          </span>
 
@@ -364,7 +360,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">1(分)</span>
+           <span class="post-count">2(分)</span>
          </span>
 
           
@@ -385,17 +381,24 @@
       
 
       
-        <p>日常开发过程中，可能会需要抓取线上https的接口，这里介绍使用 <strong>Charles</strong> 来实现。</p>
+        <p>Shiro提供了类似于Spring的Cache抽象，即Shiro本身不实现Cache，但是对Cache进行了又抽象，方便更换不同的底层Cache实现。</p>
+<p>Shiro提供的<code>Cache</code>接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cache</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;  </div><div class="line">    <span class="comment">//根据Key获取缓存中的值  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(K key)</span> <span class="keyword">throws</span> CacheException</span>;  </div><div class="line">    <span class="comment">//往缓存中放入key-value，返回缓存中之前的值  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> <span class="keyword">throws</span> CacheException</span>;   </div><div class="line">    <span class="comment">//移除缓存中key对应的值，返回该值  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">remove</span><span class="params">(K key)</span> <span class="keyword">throws</span> CacheException</span>;  </div><div class="line">    <span class="comment">//清空整个缓存  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> <span class="keyword">throws</span> CacheException</span>;  </div><div class="line">    <span class="comment">//返回缓存大小  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;  </div><div class="line">    <span class="comment">//获取缓存中所有的key  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> Set&lt;K&gt; <span class="title">keys</span><span class="params">()</span></span>;  </div><div class="line">    <span class="comment">//获取缓存中所有的value  </span></div><div class="line">    <span class="function"><span class="keyword">public</span> Collection&lt;V&gt; <span class="title">values</span><span class="params">()</span></span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<p>首先在电脑上安装 <strong>Charles</strong> ，破解不破解都可以。我这里的版本是4.2.1。</p>
-<p>之后需要在手机上安装SSL证书。<br>点击 <strong>Charles</strong> 的 <strong>Help</strong> -&gt; <strong>SSL Proxying</strong> -&gt; <strong>Install Charles Root Certificate on a Mobile Device or Remote Browser</strong> :<br><img src="/images/charles1.png" alt=""></p>
-<p>之后会弹出弹窗，提示如何安装证书：<br>首先配置手机网络使用Charles的HTTP代理。<br>点击已经连接的Wi-Fi网络边上的叹号按钮，打开手机的网络配置页面，拖到最下面选择配置代理按钮，选择手动，然后服务器填写电脑的ip，端口填写8888：<br><img src="/images/charles2.jpeg" alt=""></p>
-<p>配置好代理后，用手机浏览器访问 <code>chls.pro/ssl</code>，提示安装证书，然后根据提示安装即可。</p>
-<p>安装完证书还不算完，新的ios系统需要单独信任证书配置：<br>选择手机的 <strong>通用</strong> -&gt; <strong>关于本机</strong> -&gt; <strong>证书信任设置</strong> ，开启证书信任。</p>
-<p>这样手机端就配置完成了。</p>
-<p>回到电脑端Charles，选择 <strong>Proxy</strong> -&gt; <strong>SSL Proxying Settings</strong> ，在这里添加对那些域名进行代理拦截，如果全部拦截，就配置为<code>*:443</code>即可：<br><img src="/images/charles3.png" alt=""></p>
-<p>至此，配置工作完成，应该可以抓取大部分https接口了。</p>
-<p>不用的时候，记得断开手机代理。</p>
+<p>Shiro提供的<code>CacheManager</code>接口：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CacheManager</span> </span>&#123;  </div><div class="line">    <span class="comment">//根据缓存名字获取一个Cache  </span></div><div class="line">    <span class="keyword">public</span> &lt;K, V&gt; <span class="function">Cache&lt;K, V&gt; <span class="title">getCache</span><span class="params">(String name)</span> <span class="keyword">throws</span> CacheException</span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Shiro还提供了<code>CacheManagerAware</code>用于注入<code>CacheManager</code>：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CacheManagerAware</span> </span>&#123;  </div><div class="line">    <span class="comment">//注入CacheManager  </span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setCacheManager</span><span class="params">(CacheManager cacheManager)</span></span>;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Shiro内部相应的组件（<code>DefaultSecurityManager</code>）会自动检测相应的对象（如<code>Realm</code>，<code>SessionManager</code>）是否实现了<code>CacheManagerAware</code>并自动注入相应的<code>CacheManager</code>。</p>
+<h3 id="Realm缓存"><a href="#Realm缓存" class="headerlink" title="Realm缓存"></a>Realm缓存</h3><p>Shiro提供了<code>CachingRealm</code>，其实现了<code>CacheManagerAware</code>接口，提供了缓存的一些基础实现；<br>另外<code>AuthenticatingRealm</code>及<code>AuthorizingRealm</code>分别提供了对<code>AuthenticationInfo</code>和<code>AuthorizationInfo</code>信息的缓存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">userRealm=com.xxx.UserRealm  </div><div class="line">userRealm.cachingEnabled=true  </div><div class="line">userRealm.authenticationCachingEnabled=true  </div><div class="line">userRealm.authenticationCacheName=authenticationCache  </div><div class="line">userRealm.authorizationCachingEnabled=true  </div><div class="line">userRealm.authorizationCacheName=authorizationCache  </div><div class="line">securityManager.realms=$userRealm</div><div class="line"></div><div class="line">cacheManager=org.apache.shiro.cache.ehcache.EhCacheManager  </div><div class="line">cacheManager.cacheManagerConfigFile=classpath:shiro-ehcache.xml  </div><div class="line">securityManager.cacheManager=$cacheManager</div></pre></td></tr></table></figure>
+<ul>
+<li><code>userRealm.cachingEnabled</code>：启用缓存，默认false；</li>
+<li><code>userRealm.authenticationCachingEnabled</code>：启用身份验证缓存，即缓存<code>AuthenticationInfo</code>信息，默认false；</li>
+<li><code>userRealm.authenticationCacheName</code>：缓存<code>AuthenticationInfo</code>信息的缓存名称；</li>
+<li><code>userRealm.authorizationCachingEnabled</code>：启用授权缓存，即缓存<code>AuthorizationInfo</code>信息，默认false；</li>
+<li><code>userRealm. authorizationCacheName</code>：缓存<code>AuthorizationInfo</code>信息的缓存名称；</li>
+</ul>
+<h3 id="Session缓存"><a href="#Session缓存" class="headerlink" title="Session缓存"></a>Session缓存</h3><p>当我们设置了SecurityManager的CacheManager时，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sessionManager=org.apache.shiro.session.mgt.DefaultSessionManager  </div><div class="line">securityManager.sessionManager=$sessionManager</div><div class="line">securityManager.cacheManager=$cacheManager</div></pre></td></tr></table></figure></p>
+<p>如<code>securityManager</code>实现了<code>SessionsSecurityManager</code>，其会自动判断<code>SessionManager</code>是否实现了<code>CacheManagerAware</code>接口，如果实现了会把<code>CacheManager</code>设置给它。<br>然后<code>sessionManager</code>会判断相应的<code>sessionDAO</code>（如继承自<code>CachingSessionDAO</code>）是否实现了<code>CacheManagerAware</code>，如果实现了会把<code>CacheManager</code>设置给它；其会先查缓存，如果找不到才查数据库。</p>
+<p>参考：<br><a href="http://jinnianshilongnian.iteye.com/blog/2029217" target="_blank" rel="external">第十一章 缓存机制——《跟我学Shiro》</a></p>
 
       
     </div>
@@ -409,7 +412,7 @@
   
         <div class="post-tags">
           
-            <a href="/tags/http/" rel="tag"><i class="fa fa-tag"></i> http</a>
+            <a href="/tags/shiro/" rel="tag"><i class="fa fa-tag"></i> shiro</a>
           
         </div>
       
@@ -421,8 +424,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/10/IDEA插件开发（七）mybatis插件之mapper解析与converter.html" rel="next" title="IDEA插件开发（七）mybatis插件之mapper解析与converter">
-                <i class="fa fa-chevron-left"></i> IDEA插件开发（七）mybatis插件之mapper解析与converter
+              <a href="/blog/2018/11/shiro开发（五）会话管理.html" rel="next" title="shiro开发（五）会话管理">
+                <i class="fa fa-chevron-left"></i> shiro开发（五）会话管理
               </a>
             
           </div>
@@ -431,8 +434,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2018/10/IDEA插件开发（八）mybatis插件之参数引用.html" rel="prev" title="IDEA插件开发（八）mybatis插件之参数引用">
-                IDEA插件开发（八）mybatis插件之参数引用 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2018/11/shiro开发（七）过滤器机制.html" rel="prev" title="shiro开发（七）过滤器机制">
+                shiro开发（七）过滤器机制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -477,8 +480,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar2.jpg"
@@ -570,6 +582,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Realm缓存"><span class="nav-number">1.</span> <span class="nav-text">Realm缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session缓存"><span class="nav-number">2.</span> <span class="nav-text">Session缓存</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
