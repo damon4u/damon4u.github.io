@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="是五月呀！">
 <meta property="og:description" content="curl命令可以方便的调试接口，发送网络请求。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-30T09:34:56.823Z">
+<meta property="og:updated_time" content="2018-12-12T14:43:57.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="curl命令">
 <meta name="twitter:description" content="curl命令可以方便的调试接口，发送网络请求。">
@@ -350,7 +350,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">字数统计:</span>
-           <span class="post-count">941(字)</span>
+           <span class="post-count">997(字)</span>
 
          </span>
 
@@ -360,7 +360,7 @@
              <i class="fa fa-calendar-o"></i>
            </span>
            <span class="post-meta-item-text">阅读时长:</span>
-           <span class="post-count">4(分)</span>
+           <span class="post-count">5(分)</span>
          </span>
 
           
@@ -418,6 +418,8 @@
 <h3 id="8-输出相应参数"><a href="#8-输出相应参数" class="headerlink" title="8.输出相应参数"></a>8.输出相应参数</h3><p>使用<code>-w</code>可以输出相应变量的参数。<br>例如<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> ~/ curl -w "\ntime_connect: %&#123;time_connect&#125;\ntime_starttransfer: %&#123;time_starttransfer&#125;\ntime_total: %&#123;time_total&#125;\n" "http://requestb.in/1g31nxf1"</div><div class="line">ok</div><div class="line">time_connect: 0.324</div><div class="line">time_starttransfer: 0.670</div><div class="line">time_total: 0.670</div></pre></td></tr></table></figure></p>
 <h3 id="9-使用代理"><a href="#9-使用代理" class="headerlink" title="9.使用代理"></a>9.使用代理</h3><p>假如代理服务器ip是125.86.166.89，端口是23564，类型是https，那么使用代理发送GET请求：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -x "https://125.86.166.89:23564" "http://www.baidu.com"</div></pre></td></tr></table></figure></p>
 <p>默认是使用http协议。<br>有时候代理需要加认证，需要携带头信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -x "60.184.111.104:766" -H "Proxy-Authorization:Basic ZGFtb240dTEyM0AxNjMuY29tOlJGdk56SHZ2VVY2N2F1" "http://www.baidu.com"</div></pre></td></tr></table></figure></p>
+<h3 id="10-下载"><a href="#10-下载" class="headerlink" title="10.下载"></a>10.下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -R -O http://www.lua.org/ftp/lua-5.3.5.tar.gz</div></pre></td></tr></table></figure>
+<p>其中<code>-R（--remote-time）</code>参数用来解析远程文件时间戳，<code>-O（--remote-name）</code>用来将远程文件保存到本地，名字取自url。</p>
 
       
     </div>
@@ -522,7 +524,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -531,7 +533,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -540,7 +542,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -611,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-简介"><span class="nav-number">1.</span> <span class="nav-text">1.简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-GET"><span class="nav-number">2.</span> <span class="nav-text">2.GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-POST"><span class="nav-number">3.</span> <span class="nav-text">3.POST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-添加头信息"><span class="nav-number">4.</span> <span class="nav-text">4.添加头信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HEAD"><span class="nav-number">5.</span> <span class="nav-text">5.HEAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-PUT"><span class="nav-number">6.</span> <span class="nav-text">6.PUT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Cookie"><span class="nav-number">7.</span> <span class="nav-text">7.Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-输出相应参数"><span class="nav-number">8.</span> <span class="nav-text">8.输出相应参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-使用代理"><span class="nav-number">9.</span> <span class="nav-text">9.使用代理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-简介"><span class="nav-number">1.</span> <span class="nav-text">1.简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-GET"><span class="nav-number">2.</span> <span class="nav-text">2.GET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-POST"><span class="nav-number">3.</span> <span class="nav-text">3.POST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-添加头信息"><span class="nav-number">4.</span> <span class="nav-text">4.添加头信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-HEAD"><span class="nav-number">5.</span> <span class="nav-text">5.HEAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-PUT"><span class="nav-number">6.</span> <span class="nav-text">6.PUT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Cookie"><span class="nav-number">7.</span> <span class="nav-text">7.Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-输出相应参数"><span class="nav-number">8.</span> <span class="nav-text">8.输出相应参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-使用代理"><span class="nav-number">9.</span> <span class="nav-text">9.使用代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-下载"><span class="nav-number">10.</span> <span class="nav-text">10.下载</span></a></li></ol></div>
             
 
           </div>
